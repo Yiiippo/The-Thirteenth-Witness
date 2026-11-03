@@ -2,14 +2,17 @@
 
 > 状态：**SOURCE READY｜方案 A 第一版完整剧本已收到并逐字归档**
 
-## 两份权威原文
+## 三份来源文本
 
 | 来源编号 | 文件 | 决定什么 |
 |---|---|---|
 | A1 | [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md) | 七章场景顺序、原对白、十次选择、原始分支方向、原五结局文本 |
 | A2 | [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md) | 后续锁定的案件真相、时间线、双胞胎身份、温室事故、十二证词、证据链和修订后结局方向 |
+| A3 | [10C_Scheme_A_Expanded_Reference.md](10C_Scheme_A_Expanded_Reference.md) | 用户追加参考；扩充证据、移尸过程、阿瑟知情边界、逻辑校验和结局正文 |
 
 A1 是完整游戏剧本；A2 是在 A1 末尾所要求的“严格逻辑校验”之后形成的案件修订。两份文件都保持原样。
+
+缺失选项的开发补写集中保存在 [13_Development_Branch_Script.md](13_Development_Branch_Script.md)。它已按用户授权生成，但在逐句确认前仍不视为 A1 原文，也不直接写入正式游戏。
 
 ## 正式开发规则
 
