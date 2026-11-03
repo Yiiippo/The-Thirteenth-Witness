@@ -65,9 +65,9 @@
     place: "雾鸦庄园 · 大厅",
     choice: "你想先了解什么？",
     options: [
-      { key: "A", text: "询问爱德华，尸体究竟是谁发现的。", next: "choice1a000" },
-      { key: "B", text: "询问爱德华，他最后一次见到父亲是什么时候。", next: "choice1gap000" },
-      { key: "C", text: "询问爱德华，为什么邀请函上没有我的名字。", next: "choice1gap000" }
+      { key: "A", text: "询问爱德华，尸体究竟是谁发现的。", next: "choice1a000", set: { clue_testimony: 1 } },
+      { key: "B", text: "询问爱德华，他最后一次见到父亲是什么时候。", next: "choice1b000", set: { clue_timeline: 1, clue_testimony: 1 } },
+      { key: "C", text: "询问爱德华，为什么邀请函上没有我的名字。", next: "choice1c000", set: { clue_invitation: 1 } }
     ]
   };
 
@@ -82,12 +82,40 @@
     { speaker: "线索", text: "第一发现者\n\n后续可追查阿瑟是否真的第一时间进入书房。", evidence: "第一发现者" }
   ], "guests000");
 
-  addSequence("choice1gap", {
+  addSequence("choice1b", {
     chapter: "prologue",
     scene: "hall",
-    place: "原稿分支标注"
+    place: "雾鸦庄园 · 大厅"
   }, [
-    { speaker: "开发标注", text: "A1 原稿保留了这个选项，但没有提供对应的后续对白、线索或变量。正式版不会在这里擅自补写；本次演示直接回到原稿主线。" }
+    { speaker: "艾薇", text: "您最后一次见到父亲，究竟是什么时候？" },
+    { speaker: "爱德华", text: "十月二十七日晚上。在书房。" },
+    { speaker: "艾薇", text: "不是三天前？" },
+    { speaker: "爱德华", text: "我之前说得不够准确。那次谈话以后，我只收到过他的书面指示。" },
+    { speaker: "艾薇", text: "你们谈了什么？" },
+    { speaker: "爱德华", text: "他说，一项持续了很多年的安排就要结束了。" },
+    { speaker: "艾薇", text: "您看清他的脸了吗？" },
+    { speaker: "旁白", text: "爱德华停顿了一下。" },
+    { speaker: "爱德华", text: "窗帘拉着，灯在他身后。我记得他用右手拿着茶杯。" },
+    { speaker: "艾薇", text: "所以您记得的是习惯，不是脸。" },
+    { speaker: "爱德华", text: "……是。" },
+    { speaker: "线索", text: "十月二十七日会面\n\n爱德华确实与一名自称阿尔杰农的人交谈，但身份确认依赖拿杯习惯。", evidence: "十月二十七日会面" }
+  ], "guests000");
+
+  addSequence("choice1c", {
+    chapter: "prologue",
+    scene: "hall",
+    place: "雾鸦庄园 · 大厅"
+  }, [
+    { speaker: "艾薇", text: "您说邀请函是您寄的，可您连我的名字都不知道。" },
+    { speaker: "爱德华", text: "因为我只是把它寄出去的人。" },
+    { speaker: "艾薇", text: "不是写信的人？" },
+    { speaker: "爱德华", text: "不是。十月三十一日，我在父亲上锁的抽屉里发现了十三只信封。前十二封写着姓名，最后一封只有地址和数字十三。" },
+    { speaker: "艾薇", text: "还有别的指示吗？" },
+    { speaker: "爱德华", text: "只有一句话——‘不要拆开，把它寄到这个地址。’" },
+    { speaker: "旁白", text: "艾薇翻过信封。" },
+    { speaker: "艾薇", text: "也就是说，寄信的人知道我住在哪里，却不愿意写出我的名字。" },
+    { speaker: "爱德华", text: "或者，他不希望我在你到达之前知道你的名字。" },
+    { speaker: "线索", text: "预先封好的第十三封信\n\n爱德华负责投寄，但信封与收件地址由他人预先准备；真正作者将在后续调查中确认。", evidence: "预先封好的第十三封信" }
   ], "guests000");
 
   addSequence("guests", {
@@ -147,7 +175,7 @@
     { speaker: "爱德华", text: "这不可能。" },
     { speaker: "艾薇", text: "为什么？" },
     { speaker: "爱德华", text: "因为我一直以为父亲就在庄园里。" },
-    { speaker: "开发标注", text: "A1 序章与第一章已按原顺序播放完毕。第二章的非 A 分支正文尚未出现在原稿中，需在实施稿确认后再接入。" }
+    { speaker: "开发标注", text: "A1 序章与第一章已按原顺序播放完毕。选择1的三个分支均已完成；第二章将按已确认的开发分支稿继续接入。" }
   ], null);
 
   window.GAME_STORY = {
@@ -171,6 +199,18 @@
         category: "人物证词",
         source: "选择1 · 询问爱德华",
         description: "阿瑟在凌晨之前进入书房整理文件并发现尸体；后续可追查他是否真的第一时间进入书房。"
+      },
+      {
+        name: "十月二十七日会面",
+        category: "时间线",
+        source: "选择1 · 询问最后会面",
+        description: "爱德华在10月27日与一名自称阿尔杰农的人交谈，但只凭右手拿茶杯的习惯确认身份。"
+      },
+      {
+        name: "预先封好的第十三封信",
+        category: "邀请函",
+        source: "选择1 · 追问无名信封",
+        description: "爱德华只负责投寄预先封好的信；阿尔杰农是主邀请函作者，夹层警告来自奥古斯特。"
       }
     ],
     chapters: {

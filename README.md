@@ -15,7 +15,9 @@
 5. [12_Development_Implementation.md](12_Development_Implementation.md)  
    开发实施版，登记来源优先级、允许进入游戏的事实及用户确认。
 6. [13_Development_Branch_Script.md](13_Development_Branch_Script.md)  
-   选择1–9缺失分支的补写对白、线索、变量与回流点；当前为待用户逐句验收的开发稿。
+   选择1–9缺失分支的补写对白、线索、变量与回流点；已经用户确认，可进入游戏。
+7. [14_Locked_Resolutions.md](14_Locked_Resolutions.md)  
+   正式锁定托马斯日期、温室动作、1897年身份鉴定、冰窖保存和邀请函作者。
 
 三份来源材料的逐字备份位于：
 

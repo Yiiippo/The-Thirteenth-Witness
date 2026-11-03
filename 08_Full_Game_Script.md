@@ -12,7 +12,7 @@
 
 A1 是完整游戏剧本；A2 是在 A1 末尾所要求的“严格逻辑校验”之后形成的案件修订。两份文件都保持原样。
 
-缺失选项的开发补写集中保存在 [13_Development_Branch_Script.md](13_Development_Branch_Script.md)。它已按用户授权生成，但在逐句确认前仍不视为 A1 原文，也不直接写入正式游戏。
+缺失选项的开发补写集中保存在 [13_Development_Branch_Script.md](13_Development_Branch_Script.md)。它不属于 A1 原文，但已经用户确认，可进入正式游戏。五项最终桥接结论见 [14_Locked_Resolutions.md](14_Locked_Resolutions.md)。
 
 ## 正式开发规则
 
