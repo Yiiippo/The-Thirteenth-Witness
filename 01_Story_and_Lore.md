@@ -1,5 +1,8 @@
 # 01｜故事、世界观与时间线
 
+> **状态：旧改编工作稿，禁止作为正式剧情或代码依据。**  
+> 本文件包含未经逐条确认的重排。正式原文见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，冲突与开放项见 [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)。
+
 > 完整逐章剧情与对白见 [08_Full_Game_Script.md](08_Full_Game_Script.md)。
 
 ## 故事总览

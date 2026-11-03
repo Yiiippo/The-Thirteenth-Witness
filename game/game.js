@@ -2,7 +2,7 @@
   "use strict";
 
   const story = window.GAME_STORY;
-  const saveKey = "thirteenth-witness-save-v1";
+  const saveKey = "thirteenth-witness-save-v2";
   const state = {
     nodeId: story.start,
     variables: {
@@ -239,7 +239,7 @@
 
     try {
       const payload = JSON.parse(raw);
-      state.nodeId = payload.nodeId || story.start;
+      state.nodeId = story.nodes[payload.nodeId] ? payload.nodeId : story.start;
       state.variables = { ...state.variables, ...(payload.variables || {}) };
       state.evidence = Array.isArray(payload.evidence) ? payload.evidence : [];
       state.history = Array.isArray(payload.history) ? payload.history : [];

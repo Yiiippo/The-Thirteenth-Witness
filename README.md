@@ -1,52 +1,39 @@
-# 《第十三位证人》项目文档体系
+# 《第十三位证人》项目文档
 
-> 方案 A 正式基线｜版本 1.0｜2026-11-02  
-> 状态标记：**LOCKED** 已确认；**VERIFY** 待验证；**REVISED** 为解决原稿矛盾而统一；**PROPOSAL** 开发建议。
+> 当前状态：**方案 A 原文已归档；剧情实施冻结；等待逐项确认旧剧本继承范围。**
 
-## 运行当前可玩版本
+## 首先阅读
 
-打开 [game/index.html](game/index.html) 即可运行浏览器原型。当前已实现序章、第一章、三组选择、调查记录与本地保存；角色立绘位保持为空，后续可直接放入透明 PNG。
+1. [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)  
+   方案 A 最终文本逐字存档。没有改写、整理或修正。
+2. [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)  
+   单独记录原文矛盾、待确认事项和年代/法医验证项。
+3. [12_Development_Implementation.md](12_Development_Implementation.md)  
+   开发实施版，列出每项允许进入游戏的事实和用户确认来源。
 
-## 核心命题
+原始文本的第二份逐字备份位于：
 
-> 一个人为了摆脱自己的身份，让另一个人替自己活了一辈子。  
-> 当替身死去，真正的那个人却还活着。  
-> 整座庄园，没有一个人能够证明自己认识的究竟是谁。
+`source/方案A_原始文本_逐字存档.txt`
 
-## 固定真相
+## 剧本和选项状态
 
-- 死者是奥古斯特·维尔，尸体最初被认作阿尔杰农。
-- 阿尔杰农·维尔仍活着，是最终身份骗局的策划者。
-- 双胞胎曾长期互换姓名、服装和社会身份。
-- 奥古斯特在旧温室冲突中跌落石阶死亡；事故、未及时救助与事后骗局必须分开判断。
-- 爱德华·维尔是阿尔杰农的儿子、庄园继承人、委托人，也是隐藏的第十三位证人。
-- 艾薇·贝尔依靠独立物证识别身份，不接受姓名、衣服或他人记忆作为最终证明。
-- 十二份公开证词均源于真实经历，但涉及不同日期、不同双胞胎或非现场材料。
-- 五个正式结局均不改变“奥古斯特死亡、阿尔杰农存活”这两个客观事实。
+- [08_Full_Game_Script.md](08_Full_Game_Script.md)：说明为什么当前没有经确认的完整逐场剧本。
+- [09_Choice_Matrix.md](09_Choice_Matrix.md)：说明为什么早期十项选择不能自动并入方案 A。
+- 旧改编已归档到 `drafts/unapproved_adaptation/`，不得被正式游戏读取。
 
-## 文档导航
+## 其他参考文档
 
-- [00_Project_Bible.md](00_Project_Bible.md)：项目圣经、固定事实与修订记录
-- [01_Story_and_Lore.md](01_Story_and_Lore.md)：完整故事、世界观与 1877–1897 时间线
-- [02_Characters.md](02_Characters.md)：核心人物与十二位公开证人
-- [03_Clues_and_Mystery.md](03_Clues_and_Mystery.md)：证词、五组关键证据与推理闭环
-- [04_Story_Branches.md](04_Story_Branches.md)：玩家选择、解锁轮次与实现变量
-- [05_Endings.md](05_Endings.md)：五个正式结局及触发条件
-- [06_Art_Guidelines.md](06_Art_Guidelines.md)：艾薇风格锚点、场景与素材清单
-- [07_Development_Plan.md](07_Development_Plan.md)：开发路线、风险和下一开发日计划
-- [08_Full_Game_Script.md](08_Full_Game_Script.md)：七章完整可制作剧本、主要对白与十项选择
-- [09_Choice_Matrix.md](09_Choice_Matrix.md)：全部选项、变量影响、前置条件与结局映射
+以下文件保留用于审查此前整理，但均带有状态警告；若与原文冲突，以原文为准：
 
-## 三项统一修订
+- [00_Project_Bible.md](00_Project_Bible.md)
+- [01_Story_and_Lore.md](01_Story_and_Lore.md)
+- [02_Characters.md](02_Characters.md)
+- [03_Clues_and_Mystery.md](03_Clues_and_Mystery.md)
+- [04_Story_Branches.md](04_Story_Branches.md)
+- [05_Endings.md](05_Endings.md)
+- [06_Art_Guidelines.md](06_Art_Guidelines.md)
+- [07_Development_Plan.md](07_Development_Plan.md)
 
-1. **REVISED｜证人数目**：原稿名单共有十一名公开证人加爱德华，却同时锁定爱德华为“第十三位证人”。正式实现改为十二位公开证人 W01–W12，爱德华单列 W13；W12 已锁定为退休事务律师埃德蒙·格雷。
-2. **REVISED｜离庄日期**：托马斯最终送走伪装成奥古斯特的阿尔杰农统一为 **1897-11-01**；10月29日保留为转移尸体日。
-3. **REVISED｜邀请函日期**：10月30日整理证词与拟函，10月31日寄出/陆续送达，11月2日聚集调查。
+## 游戏
 
-## 维护规则
-
-- 角色数据始终区分肉身身份、当时使用身份、证人以为的身份。
-- 证词始终区分真实日期、玩家初始理解、实际对象、信息媒介。
-- 锁定事实只能通过用户确认修改；推测不得写进正式台词或宣传文案。
-- 完整对话中的旧版本只作结构参考；凡与方案 A 冲突者，以方案 A 为准。
-
+[game/index.html](game/index.html) 当前仅保留视觉小说界面与系统演示。正式剧情在来源确认前暂停接入。

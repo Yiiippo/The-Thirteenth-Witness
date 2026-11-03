@@ -1,5 +1,8 @@
 # 00｜Project Bible
 
+> **状态：旧改编工作稿，禁止作为正式剧情或代码依据。**  
+> 本文件保留用于审查此前改写。正式原文见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，正式实施规则见 [12_Development_Implementation.md](12_Development_Implementation.md)。
+
 ## 项目定位
 
 - 类型：英伦维多利亚庄园悬疑 / 本格推理 / 哥特浪漫视觉小说。

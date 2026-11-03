@@ -1,5 +1,8 @@
 # 02｜角色与证人
 
+> **状态：实施参考稿，不是原始剧本。**  
+> 只有 [12_Development_Implementation.md](12_Development_Implementation.md) 中列为 CONFIRMED 的角色变更可以进入游戏。
+
 ## 艾薇·贝尔 Ivy Bell
 
 - 身份：调查者；收到第十三封邀请函。
