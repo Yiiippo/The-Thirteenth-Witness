@@ -1,9 +1,9 @@
 # 04｜剧情分支、选择与变量
 
-> **状态：未核准的开发建议。**  
-> 最终方案 A 原始文本没有逐章选项表；本文件不得被视为“原选项”。官方选项状态见 [09_Choice_Matrix.md](09_Choice_Matrix.md)。
+> **状态：实施参考稿，不是逐字原稿。**  
+> A1 已提供十次原始选择，但选择1–9的大多数非A分支没有后续正文。原句、顺序和缺口见 [09_Choice_Matrix.md](09_Choice_Matrix.md)。
 
-> 十项完整选择、即时反馈和结局映射见 [09_Choice_Matrix.md](09_Choice_Matrix.md)。
+> 十项原始选择与分支完整度见 [09_Choice_Matrix.md](09_Choice_Matrix.md)。
 
 ## 不变量
 
@@ -53,4 +53,5 @@
 - death_scene_reconstructed 不等于 murder_proven。
 - archives_disclosed=false 不删除玩家已知真相，只改变社会记录。
 - 秘密结局不是推翻方案 A，而是在固定真相之外开启“谁选择艾薇”的新谜题。
+
 

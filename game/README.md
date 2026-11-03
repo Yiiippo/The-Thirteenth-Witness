@@ -1,23 +1,30 @@
-# 《第十三位证人》浏览器界面原型
+# 《第十三位证人》浏览器游戏
 
-> 状态：剧情内容冻结。当前正式版本不播放任何由 Codex 自行补写的剧情。
+> 状态：方案 A 第一版完整剧本已经接入序章与第一章；所有正式台词、选项和顺序均可追溯到 A1 原稿。
 
 ## 运行
 
 双击 `index.html`，使用常见桌面浏览器打开即可。不需要安装依赖。
 
-当前保留：
+当前包含：
 
-- 标题画面
-- 内容冻结状态页
-- 对话逐字显示
-- 调查记录
-- 角色档案：角色登场后自动点亮，未登场角色保持灰色
-- 线索档案系统
-- 本地保存与读取
-- 庄园门前、门厅、书房、证物特写四种场景占位
-- 左侧角色立绘预留位
+- A1 原稿序章《没有写名字的邀请函》
+- A1 原稿第一章《第十二份证词》
+- 原始选择1的三个选项
+- 选择1的 A 分支原始对白与“第一发现者”线索
+- B/C 分支缺失提示：原稿未写正文，因此不由 Codex 补写
+- 角色档案：角色在场景中登场后点亮
+- 线索档案、调查记录、本地保存与读取
+- 庄园门前、门厅、书房和证物特写场景占位
+- 左侧透明角色立绘预留位
 - 手机和桌面自适应布局
+
+## 来源规则
+
+- 场景、对白、选择和顺序：`../project_docs_v3/10_Scheme_A_Original_Script.md`
+- 最终案件事实修订：`../project_docs_v3/10B_Scheme_A_Final_Case_Setting.md`
+- 冲突与开放项：`../project_docs_v3/11_Contradictions_and_Open_Questions.md`
+- 实施准入：`../project_docs_v3/12_Development_Implementation.md`
 
 ## 替换角色立绘
 
@@ -28,37 +35,18 @@
 portrait: "./assets/characters/ivy-neutral.png"
 ```
 
-建议立绘为透明背景、人物脚部贴近画布底部。页面会自动将图片放入左侧预留位置。
-
 ## 替换正式背景
 
-目前背景由 CSS 生成，所以即使没有素材也能运行。正式图片准备好后，可以在 `styles.css` 的场景类中加入：
-
-```css
-.scene-study .scene-art {
-  background-image:
-    linear-gradient(rgba(8, 13, 17, .2), rgba(8, 13, 17, .55)),
-    url("./assets/backgrounds/study.webp");
-  background-size: cover;
-  background-position: center;
-}
-```
-
-对应场景类：
+当前背景由 CSS 生成。正式图片准备好后，可在 `styles.css` 的场景类中添加背景图：
 
 - `.scene-manor`：庄园外景
 - `.scene-hall`：门厅与走廊
 - `.scene-study`：书房
 - `.scene-closeup`：信件、尸体与证物特写
 
-## 文件说明
+## 后续接入限制
 
-- `index.html`：游戏画面结构
-- `styles.css`：视觉风格和布局
-- `story.js`：剧本、选择和变量
-- `game.js`：播放、存档、历史记录等功能
-- `assets/`：后续角色、背景和音频素材
+选择2–9的大多数非 A 分支在 A1 原稿中没有后续对白。第二章之后接入前，需要先建立待确认分支稿；第六、七章还需先完成 A1 与 A2 的真相桥接。
 
-此前的序章、第一章和选择已备份到 `drafts/unapproved_adaptation/game/`，不得作为正式剧情使用。
+冻结状态版已备份到 `drafts/content_freeze_game/`；旧 Codex 改编仍位于 `drafts/unapproved_adaptation/game/`，两者都不会被正式游戏读取。
 
-下一步是在方案 A 原始对白和可继承选项得到逐项确认后，从第一章开始重新接入。

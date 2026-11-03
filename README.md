@@ -1,29 +1,32 @@
 # 《第十三位证人》项目文档
 
-> 当前状态：**方案 A 原文已归档；剧情实施冻结；等待逐项确认旧剧本继承范围。**
+> 当前状态：**方案 A 的完整原始剧本与后续案件修订均已逐字归档；正式游戏按“原剧本结构＋已确认修订”恢复开发。**
 
 ## 首先阅读
 
 1. [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)  
-   方案 A 最终文本逐字存档。没有改写、整理或修正。
-2. [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)  
-   单独记录原文矛盾、待确认事项和年代/法医验证项。
-3. [12_Development_Implementation.md](12_Development_Implementation.md)  
-   开发实施版，列出每项允许进入游戏的事实和用户确认来源。
+   方案 A 第一版完整游戏剧本。它是场景、对白、十次选择及原始顺序的权威来源，逐字保存，不在文件内修正。
+2. [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md)  
+   方案 A 后续案件设定与逻辑修订。它是“奥古斯特死亡、阿尔杰农存活、1877年实验、温室事故、十二证词”等最终案件真相的权威来源，逐字保存。
+3. [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)  
+   单独记录两份原文之间及各自内部的矛盾、待确认事项与验证项。
+4. [12_Development_Implementation.md](12_Development_Implementation.md)  
+   开发实施版，登记来源优先级、允许进入游戏的事实及用户确认。
 
-原始文本的第二份逐字备份位于：
+两份原始材料的逐字备份位于：
 
-`source/方案A_原始文本_逐字存档.txt`
+- `source/方案A_第一版完整剧本_逐字存档.txt`
+- `source/方案A_正式案件设定_逐字存档.txt`
 
-## 剧本和选项状态
+## 剧本和选项
 
-- [08_Full_Game_Script.md](08_Full_Game_Script.md)：说明为什么当前没有经确认的完整逐场剧本。
-- [09_Choice_Matrix.md](09_Choice_Matrix.md)：说明为什么早期十项选择不能自动并入方案 A。
-- 旧改编已归档到 `drafts/unapproved_adaptation/`，不得被正式游戏读取。
+- [08_Full_Game_Script.md](08_Full_Game_Script.md)：正式开发如何忠实引用原剧本并应用后续修订。
+- [09_Choice_Matrix.md](09_Choice_Matrix.md)：原剧本十次选择的顺序、原句与分支完整度。
+- 旧的 Codex 自行改编仍归档在 `drafts/unapproved_adaptation/`，不得被正式游戏读取。
 
 ## 其他参考文档
 
-以下文件保留用于审查此前整理，但均带有状态警告；若与原文冲突，以原文为准：
+以下文件保留为项目圣经、角色、证据、美术和开发参考；若与两份原始材料冲突，按 [12_Development_Implementation.md](12_Development_Implementation.md) 的来源规则处理：
 
 - [00_Project_Bible.md](00_Project_Bible.md)
 - [01_Story_and_Lore.md](01_Story_and_Lore.md)
@@ -36,4 +39,5 @@
 
 ## 游戏
 
-[game/index.html](game/index.html) 当前仅保留视觉小说界面与系统演示。正式剧情在来源确认前暂停接入。
+[game/index.html](game/index.html) 保留既有视觉小说界面、角色档案、线索档案和存档系统；剧情只接入能逐句定位到原剧本或已确认修订的内容。
+

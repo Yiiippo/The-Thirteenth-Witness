@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101923">
+  <title>第十三位证人｜可玩原型</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <main id="app" class="app">
+    <section id="title-screen" class="title-screen" aria-labelledby="game-title">
+      <div class="title-fog" aria-hidden="true"></div>
+      <div class="title-card">
+        <p class="eyebrow">A VICTORIAN MYSTERY · 1897</p>
+        <h1 id="game-title">第十三位证人</h1>
+        <p class="english-title">THE THIRTEENTH WITNESS</p>
+        <p class="title-copy">方案 A 原文已归档。<br>正式剧情正在按来源逐项确认。</p>
+        <div class="title-actions">
+          <button id="new-game" class="primary-button" type="button">查看当前状态</button>
+          <button id="continue-game" class="secondary-button" type="button">读取记录</button>
+        </div>
+        <p class="prototype-note">界面系统保留 · 剧情内容冻结</p>
+      </div>
+    </section>
+
+    <section id="game-screen" class="game-screen is-hidden" aria-label="游戏画面">
+      <div id="scene" class="scene scene-manor">
+        <div class="scene-art" aria-hidden="true">
+          <div class="rain"></div>
+          <div class="architecture"></div>
+          <div class="vignette"></div>
+        </div>
+
+        <header class="top-bar">
+          <div>
+            <p id="chapter-kicker" class="chapter-kicker">序章</p>
+            <p id="chapter-title" class="chapter-title">第十三封邀请函</p>
+          </div>
+          <div class="top-actions">
+            <button id="clues-button" class="utility-button clue-button" type="button">
+              线索 <span id="clue-count" class="button-count">0</span>
+            </button>
+            <button id="characters-button" class="utility-button character-button" type="button">
+              角色 <span id="character-count" class="button-count">0</span>
+            </button>
+            <button id="history-button" class="utility-button" type="button">记录</button>
+            <button id="save-button" class="utility-button" type="button">保存</button>
+            <button id="load-button" class="utility-button" type="button">读取</button>
+            <button id="menu-button" class="utility-button" type="button">标题</button>
+          </div>
+        </header>
+
+        <aside class="case-stamp" aria-hidden="true">
+          <span>CASE</span>
+          <strong id="case-number">XIII</strong>
+          <small>VALE ESTATE</small>
+        </aside>
+
+        <div id="portrait-slot" class="portrait-slot is-empty" aria-label="角色立绘预留位置">
+          <img id="portrait-image" alt="">
+          <div class="portrait-placeholder">
+            <span>PORTRAIT</span>
+            <strong>角色立绘预留</strong>
+            <small>透明 PNG · 左侧对齐</small>
+          </div>
+        </div>
+
+        <section id="choice-panel" class="choice-panel is-hidden" aria-label="选择">
+          <p id="choice-prompt" class="choice-prompt"></p>
+          <div id="choice-list" class="choice-list"></div>
+        </section>
+
+        <section id="dialogue-box" class="dialogue-box" tabindex="0" aria-live="polite">
+          <div class="speaker-rail">
+            <p id="speaker-name" class="speaker-name">旁白</p>
+            <p id="scene-label" class="scene-label">雾鸦庄园 · 门前</p>
+          </div>
+          <div class="dialogue-content">
+            <p id="dialogue-text" class="dialogue-text"></p>
+            <button id="advance-button" class="advance-button" type="button" aria-label="继续">
+              <span>继续</span>
+              <i aria-hidden="true"></i>
+            </button>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span id="progress-fill"></span>
+          </div>
+        </section>
+
+        <div id="toast" class="toast" role="status"></div>
+      </div>
+    </section>
+
+    <dialog id="history-dialog" class="history-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">INVESTIGATION LOG</p>
+          <h2>调查记录</h2>
+        </div>
+        <button id="close-history" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="history-list" class="history-list"></div>
+    </dialog>
+
+    <dialog id="characters-dialog" class="characters-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">PERSONS OF INTEREST</p>
+          <h2>角色档案</h2>
+          <p id="characters-summary" class="dialog-summary">已登记 0 人</p>
+        </div>
+        <button id="close-characters" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="character-grid" class="character-grid"></div>
+    </dialog>
+
+    <dialog id="clues-dialog" class="clues-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">COLLECTED EVIDENCE</p>
+          <h2>线索档案</h2>
+          <p id="clues-summary" class="dialog-summary">已收集 0 条线索</p>
+        </div>
+        <button id="close-clues" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="clue-list" class="clue-list"></div>
+    </dialog>
+  </main>
+
+  <script src="./story.js"></script>
+  <script src="./game.js"></script>
+</body>
+</html>
+

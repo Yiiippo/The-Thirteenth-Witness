@@ -1,7 +1,7 @@
 # 01｜故事、世界观与时间线
 
-> **状态：旧改编工作稿，禁止作为正式剧情或代码依据。**  
-> 本文件包含未经逐条确认的重排。正式原文见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，冲突与开放项见 [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)。
+> **状态：A2 案件修订的实施参考稿，不是逐字原稿。**  
+> 完整原剧本见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，案件真相原文见 [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md)，冲突与开放项见 [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)。
 
 > 完整逐章剧情与对白见 [08_Full_Game_Script.md](08_Full_Game_Script.md)。
 
@@ -86,4 +86,5 @@
 - 双胞胎父亲（第一代实验发起者）的姓名、动机边界与是否仍在世。
 - 奥古斯特坠落究竟是纯粹争夺中的失衡，还是阿尔杰农有明确推搡动作。
 - 遗体保存与死亡时间鉴定的医学可信度。
+
 

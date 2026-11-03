@@ -2,7 +2,7 @@
   "use strict";
 
   const story = window.GAME_STORY;
-  const saveKey = "thirteenth-witness-save-v2";
+  const saveKey = "thirteenth-witness-save-v3";
   const state = {
     nodeId: story.start,
     variables: {
@@ -76,6 +76,7 @@
 
     clearTyping();
     unlockSpeaker(node.speaker);
+    unlockCharacters(node.unlock);
     applyPresentation(node);
     updateProgress();
 
@@ -183,7 +184,7 @@
       button.type = "button";
       button.className = "choice-button";
       button.dataset.key = option.key;
-      button.textContent = option.text;
+      button.textContent = `${option.key}. ${option.text}`;
       button.addEventListener("click", () => choose(option, node.choice));
       choiceList.appendChild(button);
     });
@@ -283,6 +284,16 @@
     state.unlockedCharacters.push(character.id);
     updateCharacterCount();
     window.setTimeout(() => showToast(`角色档案已更新：${character.name}`), 220);
+  }
+
+  function unlockCharacters(characterIds) {
+    if (!Array.isArray(characterIds)) return;
+    characterIds.forEach((characterId) => {
+      const character = story.characters.find((item) => item.id === characterId);
+      if (!character || state.unlockedCharacters.includes(character.id)) return;
+      state.unlockedCharacters.push(character.id);
+    });
+    updateCharacterCount();
   }
 
   function inferUnlockedCharacters(history) {
@@ -462,3 +473,4 @@
   updateContinueButton();
   updateClueCount();
 })();
+

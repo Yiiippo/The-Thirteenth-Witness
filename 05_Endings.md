@@ -1,7 +1,7 @@
 # 05｜五个正式结局
 
 > **状态：实施参考稿。**  
-> 五个结局的逐字原文保存在 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)“第七部分”；若本文件与原文不同，以原文为准。
+> 五个结局的第一版逐字原文保存在 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)；正式案件事实与结局修订见 [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md)。两者冲突按实施追踪处理，原稿均不回写。
 
 ## 固定前提
 
@@ -70,4 +70,5 @@
 - END 03 的代价必须落在奥古斯特再次被抹去，不能只表现为浪漫选择。
 - END 04 不能给出错误事实，只能保持未知。
 - END 05 必须建立在方案 A 已成立之后。
+
 

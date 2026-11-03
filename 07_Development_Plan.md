@@ -1,7 +1,7 @@
 # 07｜开发计划
 
-> **状态：旧开发计划，暂不执行剧情制作部分。**  
-> 当前优先级已改为“原文归档 → 冲突确认 → 实施追踪 → 恢复剧情开发”，详见 [12_Development_Implementation.md](12_Development_Implementation.md)。
+> **状态：开发计划待按 A1 完整剧本重新排期。**  
+> 原文归档已经完成，当前进入“逐章忠实接入 → 缺失分支确认 → A1/A2 冲突桥接”，详见 [12_Development_Implementation.md](12_Development_Implementation.md)。
 
 ## 当前制作目标
 
@@ -89,4 +89,5 @@ Evidence 字段：id、proves、cannot_alone_prove。示例：阿尔杰农手伤
 - 法医、年代、继承法律问题有来源记录。
 - 五结局全部自动可达且固定事实不变。
 - 艾薇与爱德华关系线贯穿调查，而非只在片尾出现。
+
 

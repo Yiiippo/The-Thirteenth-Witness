@@ -1,7 +1,7 @@
 # 00｜Project Bible
 
-> **状态：旧改编工作稿，禁止作为正式剧情或代码依据。**  
-> 本文件保留用于审查此前改写。正式原文见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，正式实施规则见 [12_Development_Implementation.md](12_Development_Implementation.md)。
+> **状态：实施参考稿，不是逐字原稿。**  
+> 完整原剧本见 [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)，后续案件修订见 [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md)，正式实施规则见 [12_Development_Implementation.md](12_Development_Implementation.md)。
 
 ## 项目定位
 
@@ -67,4 +67,5 @@
 - 不用“长得一样”覆盖身体差异；右手旧伤、惯用手、怀表维修号必须可追溯。
 - 不让医生因剧情需要变笨；其初判错误必须来自不完整病历与先入身份信息。
 - 不用暧昧恋爱取代艾薇与爱德华的认知关系主线。
+
 
