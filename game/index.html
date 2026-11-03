@@ -69,6 +69,22 @@
           </div>
         </div>
 
+        <section id="investigation-panel" class="investigation-panel is-hidden" aria-label="场景搜查">
+          <header class="investigation-header">
+            <div>
+              <p class="eyebrow">SCENE INVESTIGATION</p>
+              <h2 id="investigation-title">搜查场景</h2>
+              <p id="investigation-instruction">点击背景上的放大镜检查物品。</p>
+            </div>
+            <div class="investigation-progress">
+              <span id="investigation-count">0 / 0</span>
+              <small>已调查</small>
+            </div>
+          </header>
+          <div id="investigation-hotspots" class="investigation-hotspots"></div>
+          <button id="finish-investigation" class="finish-investigation" type="button" disabled>完成搜查</button>
+        </section>
+
         <section id="choice-panel" class="choice-panel is-hidden" aria-label="选择">
           <p id="choice-prompt" class="choice-prompt"></p>
           <div id="choice-list" class="choice-list"></div>
@@ -93,6 +109,13 @@
 
         <div id="toast" class="toast" role="status"></div>
       </div>
+
+      <section id="chapter-transition" class="chapter-transition is-hidden" aria-live="polite" aria-label="章节标题">
+        <div class="chapter-transition-ornament" aria-hidden="true"></div>
+        <p id="transition-kicker" class="transition-kicker">第一章</p>
+        <h2 id="transition-title" class="transition-title">第十二份证词</h2>
+        <div class="chapter-transition-line" aria-hidden="true"></div>
+      </section>
     </section>
 
     <dialog id="history-dialog" class="history-dialog">
@@ -163,6 +186,14 @@
           <span>退出</span><small>返回游戏标题画面</small>
         </button>
       </div>
+    </dialog>
+
+    <dialog id="investigation-dialog" class="investigation-dialog">
+      <div class="investigation-result-mark" aria-hidden="true"></div>
+      <p class="eyebrow">OBSERVATION</p>
+      <h2 id="investigation-item-name">调查物品</h2>
+      <p id="investigation-item-description"></p>
+      <button id="close-investigation-result" class="primary-button" type="button">记录并返回</button>
     </dialog>
   </main>
 

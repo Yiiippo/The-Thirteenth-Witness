@@ -23,6 +23,7 @@
     evidence: [],
     history: [],
     unlockedCharacters: [],
+    investigations: {},
     typing: false,
     typeTimer: null,
     fullText: ""
@@ -43,6 +44,15 @@
   const choicePanel = $("#choice-panel");
   const choicePrompt = $("#choice-prompt");
   const choiceList = $("#choice-list");
+  const investigationPanel = $("#investigation-panel");
+  const investigationTitle = $("#investigation-title");
+  const investigationInstruction = $("#investigation-instruction");
+  const investigationCount = $("#investigation-count");
+  const investigationHotspots = $("#investigation-hotspots");
+  const finishInvestigation = $("#finish-investigation");
+  const investigationDialog = $("#investigation-dialog");
+  const investigationItemName = $("#investigation-item-name");
+  const investigationItemDescription = $("#investigation-item-description");
   const portraitSlot = $("#portrait-slot");
   const portraitImage = $("#portrait-image");
   const progressFill = $("#progress-fill");
@@ -61,7 +71,12 @@
   const musicVolume = $("#music-volume");
   const musicVolumeValue = $("#music-volume-value");
   const musicNowPlaying = $("#music-now-playing");
+  const chapterTransition = $("#chapter-transition");
+  const transitionKicker = $("#transition-kicker");
+  const transitionTitle = $("#transition-title");
   const toast = $("#toast");
+  let renderedChapter = null;
+  let chapterTransitionTimers = [];
 
   const audioSettingsKey = "thirteenth-witness-audio-v1";
   const musicTracks = {
@@ -188,6 +203,8 @@
 
   function startGame(fromSave = false) {
     if (!fromSave) resetState();
+    clearChapterTransition();
+    renderedChapter = null;
     titleScreen.classList.add("is-hidden");
     gameScreen.classList.remove("is-hidden");
     renderNode();
@@ -213,19 +230,35 @@
     state.evidence = [];
     state.history = [];
     state.unlockedCharacters = [];
+    state.investigations = {};
     updateCharacterCount();
     updateClueCount();
   }
 
-  function renderNode() {
+  function renderNode(skipChapterTransition = false) {
     const node = story.nodes[state.nodeId];
     if (!node) return;
+
+    if (!skipChapterTransition && node.chapter !== renderedChapter) {
+      showChapterTransition(node);
+      return;
+    }
+
+    renderedChapter = node.chapter;
 
     clearTyping();
     unlockSpeaker(node.speaker);
     unlockCharacters(node.unlock);
     applyPresentation(node);
     updateProgress();
+    choicePanel.classList.add("is-hidden");
+    investigationPanel.classList.add("is-hidden");
+
+    if (node.investigation) {
+      showInvestigation(node);
+      dialogueBox.classList.add("is-hidden");
+      return;
+    }
 
     if (node.choice) {
       showChoices(node);
@@ -233,7 +266,6 @@
       return;
     }
 
-    choicePanel.classList.add("is-hidden");
     dialogueBox.classList.remove("is-hidden");
     speakerName.textContent = node.speaker || "旁白";
     speakerRole.textContent = getSpeakerRole(node.speaker);
@@ -247,6 +279,38 @@
     }
 
     typeText(node.text || "");
+  }
+
+  function clearChapterTransition() {
+    chapterTransitionTimers.forEach((timer) => window.clearTimeout(timer));
+    chapterTransitionTimers = [];
+    chapterTransition.classList.add("is-hidden");
+    chapterTransition.classList.remove("is-visible", "is-leaving");
+  }
+
+  function showChapterTransition(node) {
+    const chapter = story.chapters[node.chapter] || story.chapters.prologue;
+    clearChapterTransition();
+    transitionKicker.textContent = chapter.kicker;
+    transitionTitle.textContent = chapter.title;
+    chapterTransition.classList.remove("is-hidden");
+
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => chapterTransition.classList.add("is-visible"));
+    });
+
+    const revealTimer = window.setTimeout(() => {
+      renderNode(true);
+      chapterTransition.classList.add("is-leaving");
+      chapterTransition.classList.remove("is-visible");
+
+      const hideTimer = window.setTimeout(() => {
+        chapterTransition.classList.add("is-hidden");
+        chapterTransition.classList.remove("is-leaving");
+      }, 1400);
+      chapterTransitionTimers.push(hideTimer);
+    }, 3000);
+    chapterTransitionTimers.push(revealTimer);
   }
 
   function getSpeakerRole(speaker) {
@@ -310,7 +374,7 @@
 
   function advance() {
     const node = story.nodes[state.nodeId];
-    if (!node || node.choice) return;
+    if (!node || node.choice || node.investigation) return;
 
     if (state.typing) {
       finishTyping();
@@ -330,6 +394,68 @@
     }
   }
 
+  function showInvestigation(node) {
+    const investigation = node.investigation;
+    const completed = state.investigations[investigation.id] || [];
+    state.investigations[investigation.id] = completed;
+
+    investigationTitle.textContent = investigation.title;
+    investigationInstruction.textContent = investigation.instruction;
+    investigationHotspots.replaceChildren();
+    investigationPanel.classList.remove("is-hidden");
+
+    investigation.items.forEach((item) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `investigation-hotspot ${completed.includes(item.id) ? "is-inspected" : ""}`;
+      button.style.left = `${item.x}%`;
+      button.style.top = `${item.y}%`;
+      button.setAttribute("aria-label", `调查：${item.label}`);
+      const label = document.createElement("span");
+      label.textContent = item.label;
+      button.appendChild(label);
+      button.addEventListener("click", () => inspectInvestigationItem(node, item, button));
+      investigationHotspots.appendChild(button);
+    });
+
+    updateInvestigationProgress(node);
+  }
+
+  function inspectInvestigationItem(node, item, button) {
+    const completed = state.investigations[node.investigation.id];
+    if (!completed.includes(item.id)) {
+      completed.push(item.id);
+      button.classList.add("is-inspected");
+      recordHistory(`搜查 · ${item.label}`, item.description);
+    }
+    investigationItemName.textContent = item.label;
+    investigationItemDescription.textContent = item.description;
+    updateInvestigationProgress(node);
+    investigationDialog.showModal();
+  }
+
+  function updateInvestigationProgress(node) {
+    const completed = state.investigations[node.investigation.id] || [];
+    const total = node.investigation.items.length;
+    investigationCount.textContent = `${completed.length} / ${total}`;
+    finishInvestigation.disabled = completed.length < total;
+  }
+
+  function finishCurrentInvestigation() {
+    const node = story.nodes[state.nodeId];
+    if (!node?.investigation || finishInvestigation.disabled) return;
+
+    if (node.evidence && !state.evidence.includes(node.evidence)) {
+      state.evidence.push(node.evidence);
+      updateClueCount();
+      showToast(`获得线索：${node.evidence}`);
+    }
+
+    recordHistory("搜查完成", node.investigation.title);
+    state.nodeId = node.next;
+    renderNode();
+  }
+
   function showChoices(node) {
     choicePrompt.textContent = node.choice;
     choiceList.replaceChildren();
@@ -340,7 +466,7 @@
       button.type = "button";
       button.className = "choice-button";
       button.dataset.key = option.key;
-      button.textContent = `${option.key}. ${option.text}`;
+      button.textContent = option.text;
       button.addEventListener("click", () => choose(option, node.choice));
       choiceList.appendChild(button);
     });
@@ -383,6 +509,7 @@
       evidence: state.evidence,
       history: state.history,
       unlockedCharacters: state.unlockedCharacters,
+      investigations: state.investigations,
       savedAt: new Date().toISOString()
     };
     localStorage.setItem(saveKey, JSON.stringify(payload));
@@ -403,6 +530,9 @@
       state.variables = { ...state.variables, ...(payload.variables || {}) };
       state.evidence = Array.isArray(payload.evidence) ? payload.evidence : [];
       state.history = Array.isArray(payload.history) ? payload.history : [];
+      state.investigations = payload.investigations && typeof payload.investigations === "object"
+        ? payload.investigations
+        : {};
       state.unlockedCharacters = Array.isArray(payload.unlockedCharacters)
         ? payload.unlockedCharacters
         : inferUnlockedCharacters(state.history);
@@ -603,6 +733,8 @@
 
   function returnToTitle() {
     clearTyping();
+    clearChapterTransition();
+    renderedChapter = null;
     gameScreen.classList.add("is-hidden");
     titleScreen.classList.remove("is-hidden");
     updateContinueButton();
@@ -618,6 +750,8 @@
   dialogueBox.addEventListener("click", advance);
   $("#settings-button").addEventListener("click", showSettings);
   $("#close-settings").addEventListener("click", () => settingsDialog.close());
+  finishInvestigation.addEventListener("click", finishCurrentInvestigation);
+  $("#close-investigation-result").addEventListener("click", () => investigationDialog.close());
   musicToggle.addEventListener("click", () => {
     audioSettings.enabled = !audioSettings.enabled;
     saveAudioSettings();
@@ -655,7 +789,7 @@
   $("#close-clues").addEventListener("click", () => cluesDialog.close());
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open || investigationDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();

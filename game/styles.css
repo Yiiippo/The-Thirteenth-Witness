@@ -42,6 +42,38 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .is-hidden { display: none !important; }
 
+.chapter-transition {
+  position: fixed;
+  z-index: 60;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 50% 44%, rgba(69, 84, 91, .24), transparent 30%),
+    linear-gradient(180deg, #111a21 0%, #090f14 68%, #05090c 100%);
+  opacity: 0;
+  pointer-events: all;
+  transition: opacity 1.35s ease;
+}
+
+.chapter-transition::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at center, transparent 24%, rgba(0, 0, 0, .72) 100%);
+  pointer-events: none;
+}
+
+.chapter-transition.is-visible { opacity: 1; }
+.chapter-transition.is-leaving { opacity: 0; }
+.chapter-transition-ornament { width: 42px; height: 42px; margin-bottom: 24px; border: 1px solid rgba(184, 154, 98, .5); transform: rotate(45deg); }
+.chapter-transition-ornament::after { content: "XIII"; display: grid; width: 100%; height: 100%; place-items: center; color: var(--gold); font-family: var(--display); font-size: 9px; transform: rotate(-45deg); }
+.transition-kicker { position: relative; margin: 0 0 14px; color: var(--gold); font-family: var(--utility); font-size: 12px; letter-spacing: .42em; }
+.transition-title { position: relative; margin: 0; color: var(--paper); font-family: var(--display); font-size: clamp(34px, 6vw, 72px); font-weight: 400; letter-spacing: .16em; text-align: center; text-shadow: 0 8px 36px #000; }
+.chapter-transition-line { position: relative; width: min(360px, 52vw); height: 1px; margin-top: 28px; background: linear-gradient(90deg, transparent, rgba(184, 154, 98, .78), transparent); }
+
 .title-screen {
   position: relative;
   display: grid;
@@ -441,6 +473,91 @@ button:focus-visible, [tabindex]:focus-visible {
   letter-spacing: .18em;
 }
 
+.investigation-panel {
+  position: absolute;
+  z-index: 7;
+  inset: 88px 0 0;
+  pointer-events: none;
+}
+
+.investigation-header {
+  position: absolute;
+  top: 18px;
+  left: clamp(20px, 4vw, 62px);
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  max-width: 430px;
+  border-left: 2px solid var(--gold);
+  padding: 13px 18px;
+  background: linear-gradient(90deg, rgba(7, 13, 17, .9), rgba(7, 13, 17, .55), transparent);
+  text-shadow: 0 2px 12px #000;
+}
+
+.investigation-header .eyebrow { margin-bottom: 6px; }
+.investigation-header h2 { margin: 0 0 6px; font-size: 19px; font-weight: 400; letter-spacing: .12em; }
+.investigation-header p:last-child { margin: 0; color: rgba(232, 224, 206, .58); font-family: var(--utility); font-size: 10px; line-height: 1.6; }
+.investigation-progress { min-width: 58px; padding-left: 16px; border-left: 1px solid rgba(232, 224, 206, .17); text-align: center; }
+.investigation-progress span { display: block; color: var(--gold); font-family: var(--display); font-size: 18px; }
+.investigation-progress small { color: rgba(232, 224, 206, .42); font-family: var(--utility); font-size: 8px; letter-spacing: .12em; }
+
+.investigation-hotspots { position: absolute; inset: 0; }
+
+.investigation-hotspot {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(232, 224, 206, .72);
+  border-radius: 50%;
+  background: rgba(7, 13, 17, .78);
+  color: var(--paper);
+  cursor: pointer;
+  pointer-events: auto;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 5px rgba(7, 13, 17, .2), 0 8px 24px rgba(0, 0, 0, .5);
+  transition: transform .18s ease, border-color .18s ease, background .18s ease;
+}
+
+.investigation-hotspot::before { content: ""; position: absolute; left: 13px; top: 11px; width: 11px; height: 11px; border: 2px solid var(--gold); border-radius: 50%; }
+.investigation-hotspot::after { content: ""; position: absolute; left: 25px; top: 24px; width: 9px; height: 2px; background: var(--gold); transform: rotate(45deg); transform-origin: left center; }
+.investigation-hotspot span { position: absolute; left: 50%; top: 50px; min-width: max-content; padding: 5px 8px; background: rgba(6, 11, 14, .88); color: rgba(232, 224, 206, .72); font-family: var(--utility); font-size: 9px; letter-spacing: .08em; opacity: 0; transform: translateX(-50%) translateY(-3px); transition: opacity .18s ease, transform .18s ease; }
+.investigation-hotspot:hover { border-color: var(--gold); background: rgba(27, 39, 43, .94); transform: translate(-50%, -50%) scale(1.08); }
+.investigation-hotspot:hover span, .investigation-hotspot:focus-visible span { opacity: 1; transform: translateX(-50%) translateY(0); }
+.investigation-hotspot.is-inspected { border-color: rgba(184, 154, 98, .45); background: rgba(73, 62, 43, .72); }
+.investigation-hotspot.is-inspected::before { border-color: rgba(232, 224, 206, .45); }
+.investigation-hotspot.is-inspected::after { background: rgba(232, 224, 206, .45); }
+
+.finish-investigation {
+  position: absolute;
+  right: clamp(22px, 5vw, 76px);
+  bottom: 34px;
+  border: 1px solid var(--gold);
+  padding: 12px 24px;
+  background: rgba(12, 20, 24, .9);
+  color: var(--paper);
+  cursor: pointer;
+  pointer-events: auto;
+  font-family: var(--utility);
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+.finish-investigation:disabled { border-color: rgba(232, 224, 206, .14); color: rgba(232, 224, 206, .28); cursor: not-allowed; }
+
+.investigation-dialog {
+  width: min(570px, 90vw);
+  border: 1px solid var(--line);
+  padding: 38px 42px 34px;
+  background: linear-gradient(135deg, rgba(51, 64, 66, .35), transparent 45%), #111a21;
+  color: var(--paper);
+  text-align: center;
+  box-shadow: 0 30px 100px #000;
+}
+.investigation-dialog::backdrop { background: rgba(2, 5, 7, .72); backdrop-filter: blur(4px); }
+.investigation-result-mark { width: 34px; height: 34px; margin: 0 auto 20px; border: 1px solid var(--gold); border-radius: 50%; box-shadow: 0 0 0 6px rgba(184, 154, 98, .08); }
+.investigation-dialog h2 { margin: 0 0 16px; font-size: 24px; font-weight: 400; letter-spacing: .12em; }
+.investigation-dialog > p:not(.eyebrow) { margin: 0 0 26px; color: rgba(232, 224, 206, .75); font-size: 14px; line-height: 1.9; text-align: left; }
+.investigation-dialog .primary-button { min-width: 160px; }
+
 .dialogue-box {
   position: absolute;
   z-index: 4;
@@ -449,7 +566,7 @@ button:focus-visible, [tabindex]:focus-visible {
   bottom: 28px;
   min-height: 172px;
   display: grid;
-  grid-template-columns: 190px 1fr;
+  grid-template-columns: 155px 1fr;
   border: 1px solid var(--line);
   background:
     linear-gradient(110deg, rgba(26, 38, 46, .96), var(--glass) 46%),
@@ -473,7 +590,7 @@ button:focus-visible, [tabindex]:focus-visible {
   min-width: 0;
   display: grid;
   align-content: center;
-  padding: 28px 20px;
+  padding: 24px 14px;
   border-right: 1px solid var(--line);
   text-align: center;
 }
@@ -482,7 +599,7 @@ button:focus-visible, [tabindex]:focus-visible {
   margin: 0 0 4px;
   color: var(--paper);
   font-family: var(--display);
-  font-size: 18px;
+  font-size: 22px;
   letter-spacing: .13em;
 }
 
@@ -490,7 +607,7 @@ button:focus-visible, [tabindex]:focus-visible {
   margin: 0;
   color: rgba(232, 224, 206, .48);
   font-family: var(--utility);
-  font-size: 9px;
+  font-size: 10px;
   line-height: 1.5;
   letter-spacing: .12em;
 }
@@ -1007,12 +1124,17 @@ button:focus-visible, [tabindex]:focus-visible {
   .case-stamp { display: none; }
   .portrait-slot { left: -5vw; width: 58vw; height: 60vh; bottom: 180px; }
   .portrait-placeholder strong { font-size: 10px; }
+  .investigation-panel { inset: 80px 0 0; }
+  .investigation-header { top: 60px; max-width: 78vw; padding: 10px 13px; }
+  .investigation-header h2 { font-size: 15px; }
+  .investigation-hotspot { width: 40px; height: 40px; }
+  .finish-investigation { right: 16px; bottom: 20px; }
   .scene-heading { top: 76px; min-width: 72vw; }
   .scene-heading strong { font-size: 12px; }
-  .dialogue-box { left: 10px; right: 10px; bottom: 10px; min-height: 178px; grid-template-columns: 112px 1fr; }
-  .speaker-rail { min-width: 0; padding: 20px 10px; }
-  .speaker-name { font-size: 15px; }
-  .speaker-role { font-size: 8px; }
+  .dialogue-box { left: 10px; right: 10px; bottom: 10px; min-height: 178px; grid-template-columns: 96px 1fr; }
+  .speaker-rail { min-width: 0; padding: 18px 8px; }
+  .speaker-name { font-size: 17px; }
+  .speaker-role { font-size: 9px; }
   .dialogue-content { min-height: 178px; padding: 24px 30px 42px 18px; }
   .dialogue-text { font-size: 14px; line-height: 1.75; }
   .choice-panel { left: 18px; right: 18px; width: auto; }
