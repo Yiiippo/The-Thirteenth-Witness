@@ -42,6 +42,10 @@
   const characterGrid = $("#character-grid");
   const characterCount = $("#character-count");
   const charactersSummary = $("#characters-summary");
+  const cluesDialog = $("#clues-dialog");
+  const clueList = $("#clue-list");
+  const clueCount = $("#clue-count");
+  const cluesSummary = $("#clues-summary");
   const toast = $("#toast");
 
   function startGame(fromSave = false) {
@@ -63,6 +67,7 @@
     state.history = [];
     state.unlockedCharacters = [];
     updateCharacterCount();
+    updateClueCount();
   }
 
   function renderNode() {
@@ -88,6 +93,7 @@
 
     if (node.evidence && !state.evidence.includes(node.evidence)) {
       state.evidence.push(node.evidence);
+      updateClueCount();
       showToast(`获得线索：${node.evidence}`);
     }
 
@@ -241,6 +247,7 @@
         ? payload.unlockedCharacters
         : inferUnlockedCharacters(state.history);
       updateCharacterCount();
+      updateClueCount();
       startGame(true);
       showToast("调查记录已读取");
     } catch {
@@ -345,6 +352,70 @@
     charactersDialog.showModal();
   }
 
+  function updateClueCount() {
+    const count = state.evidence.length;
+    clueCount.textContent = count;
+    cluesSummary.textContent = `已收集 ${count} 条线索`;
+  }
+
+  function showClues() {
+    clueList.replaceChildren();
+
+    if (!state.evidence.length) {
+      const empty = document.createElement("div");
+      empty.className = "clue-empty";
+      const mark = document.createElement("span");
+      mark.textContent = "∅";
+      const title = document.createElement("h3");
+      title.textContent = "尚未获得线索";
+      const copy = document.createElement("p");
+      copy.textContent = "调查场景并完成选择，新的观察和证物会自动归入这里。";
+      empty.append(mark, title, copy);
+      clueList.appendChild(empty);
+    } else {
+      state.evidence.forEach((name, index) => {
+        const clue = story.clues.find((item) => item.name === name) || {
+          name,
+          category: "线索",
+          source: "调查过程中获得",
+          description: "这条线索尚未补充详细说明。"
+        };
+
+        const card = document.createElement("article");
+        card.className = "clue-card";
+
+        const docket = document.createElement("div");
+        docket.className = "clue-docket";
+        const number = document.createElement("span");
+        number.textContent = `E-${String(index + 1).padStart(2, "0")}`;
+        const category = document.createElement("small");
+        category.textContent = clue.category;
+        docket.append(number, category);
+
+        const content = document.createElement("div");
+        content.className = "clue-card-content";
+        const title = document.createElement("h3");
+        title.textContent = clue.name;
+        const source = document.createElement("p");
+        source.className = "clue-source";
+        source.textContent = clue.source;
+        const description = document.createElement("p");
+        description.className = "clue-description";
+        description.textContent = clue.description;
+        content.append(title, source, description);
+
+        const seal = document.createElement("span");
+        seal.className = "evidence-seal";
+        seal.textContent = "已收录";
+        card.append(docket, content, seal);
+        clueList.appendChild(card);
+      });
+    }
+
+    updateClueCount();
+    cluesDialog.showModal();
+  }
+
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add("is-visible");
@@ -377,9 +448,11 @@
   $("#close-history").addEventListener("click", () => historyDialog.close());
   $("#characters-button").addEventListener("click", showCharacters);
   $("#close-characters").addEventListener("click", () => charactersDialog.close());
+  $("#clues-button").addEventListener("click", showClues);
+  $("#close-clues").addEventListener("click", () => cluesDialog.close());
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();
@@ -387,4 +460,5 @@
   });
 
   updateContinueButton();
+  updateClueCount();
 })();

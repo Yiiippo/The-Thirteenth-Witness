@@ -19,6 +19,64 @@ window.GAME_STORY = {
     { id: "george", name: "乔治", english: "George", speaker: "乔治", role: "负责庄园古董钟的维修工", initials: "GE", avatar: "" },
     { id: "edmund", name: "埃德蒙·格雷", english: "Edmund Grey", speaker: "埃德蒙", role: "退休事务律师；第十二位公开证人", initials: "EG", avatar: "" }
   ],
+  clues: [
+    {
+      id: "discovery-chain",
+      name: "阿瑟发现尸体",
+      category: "证词",
+      source: "庄园门前 · 爱德华的回答",
+      description: "阿瑟并非偶然进入书房。他按照一张书面指示开门，发现了被认作阿尔杰农的尸体。"
+    },
+    {
+      id: "invitation-wording",
+      name: "邀请函的措辞",
+      category: "文书",
+      source: "第十三封邀请函",
+      description: "十二位证人被要求彼此隔离，只写下自己真正记得的事情。这种措辞像是在刻意保存证词差异。"
+    },
+    {
+      id: "unknown-client",
+      name: "委托来源不明",
+      category: "疑点",
+      source: "庄园门前 · 爱德华的回答",
+      description: "爱德华承认第十三封信不是他写的，却准确写有艾薇的姓名和住址。真正的邀请者仍不明确。"
+    },
+    {
+      id: "uninjured-hand",
+      name: "右手无旧伤",
+      category: "身体",
+      source: "书房 · 第一次尸体检查",
+      description: "死者右手无名指完整，没有旧骨折或明显变形。该观察暂时不绑定任何姓名。"
+    },
+    {
+      id: "watch-number",
+      name: "怀表维修编号",
+      category: "物证",
+      source: "书房 · 死者随身物品",
+      description: "怀表外壳上的家徽只能证明它属于维尔家；内盖维修编号可以追查这只表真正的使用记录。"
+    },
+    {
+      id: "cellar-traces",
+      name: "酒窖尘土与搬运痕迹",
+      category: "现场",
+      source: "书房 · 环境检查",
+      description: "死者鞋底带有酒窖常见的白色粉尘，地毯边缘留有新擦痕，说明尸体可能被移动过。"
+    },
+    {
+      id: "independent-medical-note",
+      name: "独立医学观察",
+      category: "医学",
+      source: "书房 · 朱利安的初检",
+      description: "朱利安同意把亲眼观察到的身体事实与庄园提供的姓名分栏记录，避免预设身份污染鉴定。"
+    },
+    {
+      id: "julian-signature",
+      name: "朱利安的旧签名秘密",
+      category: "人物",
+      source: "书房 · 对医生的追问",
+      description: "朱利安承认一份旧签名原件另有隐情。他尚未交出文件，但愿意在取得信任后继续说明。"
+    }
+  ],
   chapters: {
     prologue: { kicker: "序章", title: "第十三封邀请函", caseNumber: "XIII" },
     chapter1: { kicker: "第一章", title: "一个名字的尸体", caseNumber: "01" }

@@ -296,6 +296,10 @@ button:focus-visible, [tabindex]:focus-visible {
   border-color: rgba(184, 154, 98, .38);
 }
 
+.clue-button {
+  border-color: rgba(135, 157, 152, .42);
+}
+
 .button-count {
   display: inline-grid;
   min-width: 18px;
@@ -575,7 +579,7 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-.history-dialog, .characters-dialog {
+.history-dialog, .characters-dialog, .clues-dialog {
   width: min(760px, 90vw);
   max-height: 78vh;
   border: 1px solid var(--line);
@@ -585,9 +589,9 @@ button:focus-visible, [tabindex]:focus-visible {
   box-shadow: 0 30px 100px #000;
 }
 
-.history-dialog::backdrop, .characters-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
+.history-dialog::backdrop, .characters-dialog::backdrop, .clues-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
 
-.history-dialog header, .characters-dialog header {
+.history-dialog header, .characters-dialog header, .clues-dialog header {
   position: sticky;
   top: 0;
   display: flex;
@@ -598,7 +602,7 @@ button:focus-visible, [tabindex]:focus-visible {
   background: #111a21;
 }
 
-.history-dialog h2, .characters-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
+.history-dialog h2, .characters-dialog h2, .clues-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
 .close-button { width: 34px; height: 34px; font-size: 22px; }
 .history-list { padding: 8px 28px 30px; }
 
@@ -753,6 +757,138 @@ button:focus-visible, [tabindex]:focus-visible {
   color: rgba(232, 224, 206, .46);
 }
 
+.clues-dialog {
+  width: min(920px, 94vw);
+  max-height: 84vh;
+  background:
+    linear-gradient(115deg, rgba(44, 57, 62, .32), transparent 38%),
+    #101820;
+}
+
+.clue-list {
+  display: grid;
+  gap: 12px;
+  padding: 22px 26px 30px;
+}
+
+.clue-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 94px 1fr;
+  min-height: 130px;
+  overflow: hidden;
+  border: 1px solid rgba(232, 224, 206, .16);
+  background:
+    linear-gradient(90deg, rgba(39, 53, 60, .82), rgba(13, 21, 27, .96) 38%),
+    #121c23;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .16);
+}
+
+.clue-card::after {
+  content: "";
+  position: absolute;
+  inset: 6px;
+  border: 1px solid rgba(232, 224, 206, .04);
+  pointer-events: none;
+}
+
+.clue-docket {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  justify-items: center;
+  gap: 8px;
+  border-right: 1px solid rgba(232, 224, 206, .13);
+  background:
+    repeating-linear-gradient(135deg, rgba(232, 224, 206, .025) 0 2px, transparent 2px 8px);
+}
+
+.clue-docket span {
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 24px;
+  letter-spacing: .08em;
+}
+
+.clue-docket small {
+  padding: 3px 7px;
+  border: 1px solid rgba(184, 154, 98, .28);
+  color: rgba(232, 224, 206, .55);
+  font-family: var(--utility);
+  font-size: 8px;
+  letter-spacing: .14em;
+}
+
+.clue-card-content {
+  position: relative;
+  z-index: 1;
+  padding: 20px 70px 18px 24px;
+}
+
+.clue-card-content h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: .08em;
+}
+
+.clue-source {
+  margin: 6px 0 12px;
+  color: var(--gold);
+  font-family: var(--utility);
+  font-size: 9px;
+  letter-spacing: .1em;
+}
+
+.clue-description {
+  margin: 0;
+  color: rgba(232, 224, 206, .68);
+  font-size: 12px;
+  line-height: 1.75;
+}
+
+.evidence-seal {
+  position: absolute;
+  z-index: 2;
+  right: 18px;
+  top: 18px;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(126, 70, 62, .72);
+  border-radius: 50%;
+  color: rgba(184, 103, 88, .82);
+  font-family: var(--utility);
+  font-size: 8px;
+  letter-spacing: .1em;
+  transform: rotate(-9deg);
+}
+
+.clue-empty {
+  min-height: 310px;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  text-align: center;
+  color: rgba(232, 224, 206, .46);
+}
+
+.clue-empty span {
+  width: 60px;
+  height: 60px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(232, 224, 206, .15);
+  border-radius: 50%;
+  font-family: var(--display);
+  font-size: 28px;
+}
+
+.clue-empty h3 { margin: 18px 0 8px; color: rgba(232, 224, 206, .7); font-weight: 400; }
+.clue-empty p { max-width: 350px; margin: 0; font-size: 12px; line-height: 1.8; }
+
 @keyframes rain { to { background-position: 30px 100px; } }
 @keyframes fog-drift { to { transform: translateX(8%); opacity: .7; } }
 @keyframes nudge { 50% { transform: translateX(4px) rotate(-45deg); } }
@@ -784,6 +920,10 @@ button:focus-visible, [tabindex]:focus-visible {
   .character-grid { grid-template-columns: 1fr; }
   .character-card { min-height: 220px; display: grid; grid-template-columns: 120px 1fr; }
   .character-card-portrait { height: 100%; border-bottom: 0; border-right: 1px solid rgba(232, 224, 206, .12); }
+  .clue-card { grid-template-columns: 68px 1fr; }
+  .clue-docket span { font-size: 17px; }
+  .clue-card-content { padding: 16px 48px 16px 14px; }
+  .evidence-seal { right: 10px; top: 12px; width: 34px; height: 34px; font-size: 7px; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -38,6 +38,9 @@
             <p id="chapter-title" class="chapter-title">第十三封邀请函</p>
           </div>
           <div class="top-actions">
+            <button id="clues-button" class="utility-button clue-button" type="button">
+              线索 <span id="clue-count" class="button-count">0</span>
+            </button>
             <button id="characters-button" class="utility-button character-button" type="button">
               角色 <span id="character-count" class="button-count">0</span>
             </button>
@@ -110,6 +113,18 @@
         <button id="close-characters" class="close-button" type="button" aria-label="关闭">×</button>
       </header>
       <div id="character-grid" class="character-grid"></div>
+    </dialog>
+
+    <dialog id="clues-dialog" class="clues-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">COLLECTED EVIDENCE</p>
+          <h2>线索档案</h2>
+          <p id="clues-summary" class="dialog-summary">已收集 0 条线索</p>
+        </div>
+        <button id="close-clues" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="clue-list" class="clue-list"></div>
     </dialog>
   </main>
 
