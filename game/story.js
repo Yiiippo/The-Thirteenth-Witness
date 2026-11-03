@@ -202,16 +202,16 @@
   seq("end5", { ...B.e, scene: "study", place: "艾薇的住处 · 深夜" }, [n("旁白", "END 05｜最后一封邀请函\n\n艾薇没有提交全部材料，决定独自寻找阿尔杰农。"), n("旁白", "奥古斯特的警告还写着：‘你已经完成二十年前未完成的任务。但你为什么会被选中？’"), n("艾薇", "阿尔杰农从剪报里选择了我。可奥古斯特又从哪里知道我的全名？"), n("旁白", "第十三位证人已经入场。\n而第十四位观察者，或许从未离开。\n\nSECRET END")]);
 
   const characters = [
-    ["ivy", "艾薇·贝尔", "Ivy Bell", "艾薇", "私家调查员｜外部验证者", "IB"],
-    ["edward", "爱德华·维尔", "Edward Vale", "爱德华", "庄园继承人｜委托人｜第十三位证人", "EV"],
-    ["cecilia", "塞西莉亚·维尔", "Cecilia Vale", "塞西莉亚", "庄园女主人｜私人信件保管者", "CV"],
-    ["julian", "朱利安·里德", "Julian Reed", "朱利安", "家庭医生｜旧病历提供者", "JR"],
-    ["arthur", "阿瑟·芬奇", "Arthur Finch", "阿瑟", "庄园管家｜尸体发现者", "AF"],
-    ["margaret", "玛格丽特·肖", "Margaret Shaw", "玛格丽特", "家庭教师｜使用过他人姓名", "MS"],
-    ["lucian", "卢西安·克罗", "Lucian Crow", "卢西安", "旅行作家｜家族手稿调查者", "LC"],
-    ["algernon", "阿尔杰农·维尔", "Algernon Vale", "阿尔杰农", "邀请函策划者｜目前存活", "AV"],
-    ["august", "奥古斯特·维尔", "August Vale", "奥古斯特", "阿尔杰农的双胞胎弟弟｜真正死者", "AV"],
-    ["edmund", "埃德蒙·格雷", "Edmund Grey", "埃德蒙", "退休事务律师｜第十二位公开证人", "EG"]
+    ["ivy", "艾薇·贝尔", "Ivy Bell", "艾薇", "调查员", "IB"],
+    ["edward", "爱德华·维尔", "Edward Vale", "爱德华", "委托人", "EV"],
+    ["cecilia", "塞西莉亚·维尔", "Cecilia Vale", "塞西莉亚", "庄园女主人", "CV"],
+    ["julian", "朱利安·里德", "Julian Reed", "朱利安", "家庭医生", "JR"],
+    ["arthur", "阿瑟·芬奇", "Arthur Finch", "阿瑟", "庄园管家", "AF"],
+    ["margaret", "玛格丽特·肖", "Margaret Shaw", "玛格丽特", "家庭教师", "MS"],
+    ["lucian", "卢西安·克罗", "Lucian Crow", "卢西安", "旅行作家", "LC"],
+    ["algernon", "阿尔杰农·维尔", "Algernon Vale", "阿尔杰农", "爱德华的父亲", "AV"],
+    ["august", "奥古斯特·维尔", "August Vale", "奥古斯特", "阿尔杰农的双胞胎弟弟", "AV"],
+    ["edmund", "埃德蒙·格雷", "Edmund Grey", "埃德蒙", "退休律师", "EG"]
   ].map(([id, name, english, speaker, role, initials]) => ({ id, name, english, speaker, role, initials, avatar: "" }));
 
   const clueMeta = {

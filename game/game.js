@@ -56,6 +56,7 @@
   const clueList = $("#clue-list");
   const clueCount = $("#clue-count");
   const cluesSummary = $("#clues-summary");
+  const settingsDialog = $("#settings-dialog");
   const toast = $("#toast");
 
   function startGame(fromSave = false) {
@@ -457,6 +458,10 @@
     cluesDialog.showModal();
   }
 
+  function showSettings() {
+    settingsDialog.showModal();
+  }
+
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add("is-visible");
@@ -482,9 +487,20 @@
     advance();
   });
   dialogueBox.addEventListener("click", advance);
-  $("#save-button").addEventListener("click", saveGame);
-  $("#load-button").addEventListener("click", loadGame);
-  $("#menu-button").addEventListener("click", returnToTitle);
+  $("#settings-button").addEventListener("click", showSettings);
+  $("#close-settings").addEventListener("click", () => settingsDialog.close());
+  $("#save-button").addEventListener("click", () => {
+    settingsDialog.close();
+    saveGame();
+  });
+  $("#load-button").addEventListener("click", () => {
+    settingsDialog.close();
+    loadGame();
+  });
+  $("#menu-button").addEventListener("click", () => {
+    settingsDialog.close();
+    returnToTitle();
+  });
   $("#history-button").addEventListener("click", showHistory);
   $("#close-history").addEventListener("click", () => historyDialog.close());
   $("#characters-button").addEventListener("click", showCharacters);
@@ -493,7 +509,7 @@
   $("#close-clues").addEventListener("click", () => cluesDialog.close());
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();

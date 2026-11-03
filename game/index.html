@@ -45,9 +45,7 @@
               角色 <span id="character-count" class="button-count">0</span>
             </button>
             <button id="history-button" class="utility-button" type="button">记录</button>
-            <button id="save-button" class="utility-button" type="button">保存</button>
-            <button id="load-button" class="utility-button" type="button">读取</button>
-            <button id="menu-button" class="utility-button" type="button">标题</button>
+            <button id="settings-button" class="utility-button settings-button" type="button">设置</button>
           </div>
         </header>
 
@@ -130,6 +128,27 @@
         <button id="close-clues" class="close-button" type="button" aria-label="关闭">×</button>
       </header>
       <div id="clue-list" class="clue-list"></div>
+    </dialog>
+
+    <dialog id="settings-dialog" class="settings-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">GAME MENU</p>
+          <h2>设置</h2>
+        </div>
+        <button id="close-settings" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div class="settings-menu">
+        <button id="save-button" class="settings-action" type="button">
+          <span>保存</span><small>保存当前调查进度</small>
+        </button>
+        <button id="load-button" class="settings-action" type="button">
+          <span>读取</span><small>读取最近一次保存</small>
+        </button>
+        <button id="menu-button" class="settings-action settings-exit" type="button">
+          <span>退出</span><small>返回游戏标题画面</small>
+        </button>
+      </div>
     </dialog>
   </main>
 

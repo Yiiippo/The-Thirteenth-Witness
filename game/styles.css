@@ -338,6 +338,9 @@ button:focus-visible, [tabindex]:focus-visible {
   border-color: rgba(135, 157, 152, .42);
 }
 
+.settings-button { border-color: rgba(184, 154, 98, .38); }
+.settings-button::before { content: "⚙"; margin-right: 5px; color: var(--gold); font-size: 10px; }
+
 .button-count {
   display: inline-grid;
   min-width: 18px;
@@ -445,7 +448,8 @@ button:focus-visible, [tabindex]:focus-visible {
   right: clamp(16px, 4vw, 64px);
   bottom: 28px;
   min-height: 172px;
-  display: block;
+  display: grid;
+  grid-template-columns: 190px 1fr;
   border: 1px solid var(--line);
   background:
     linear-gradient(110deg, rgba(26, 38, 46, .96), var(--glass) 46%),
@@ -464,17 +468,14 @@ button:focus-visible, [tabindex]:focus-visible {
 }
 
 .speaker-rail {
-  position: absolute;
-  z-index: 2;
-  top: -37px;
-  left: 50%;
-  min-width: 270px;
-  padding: 10px 28px 9px;
-  border: 1px solid var(--line);
-  background: rgba(9, 16, 21, .94);
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  display: grid;
+  align-content: center;
+  padding: 28px 20px;
+  border-right: 1px solid var(--line);
   text-align: center;
-  transform: translateX(-50%);
-  box-shadow: 0 9px 26px rgba(0, 0, 0, .34);
 }
 
 .speaker-name {
@@ -499,9 +500,9 @@ button:focus-visible, [tabindex]:focus-visible {
   display: flex;
   align-items: center;
   min-height: 172px;
-  justify-content: center;
-  padding: 44px 90px 26px;
-  text-align: center;
+  justify-content: flex-start;
+  padding: 28px 90px 28px 34px;
+  text-align: left;
 }
 
 .dialogue-text {
@@ -628,7 +629,7 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-.history-dialog, .characters-dialog, .clues-dialog {
+.history-dialog, .characters-dialog, .clues-dialog, .settings-dialog {
   width: min(760px, 90vw);
   max-height: 78vh;
   border: 1px solid var(--line);
@@ -638,9 +639,9 @@ button:focus-visible, [tabindex]:focus-visible {
   box-shadow: 0 30px 100px #000;
 }
 
-.history-dialog::backdrop, .characters-dialog::backdrop, .clues-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
+.history-dialog::backdrop, .characters-dialog::backdrop, .clues-dialog::backdrop, .settings-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
 
-.history-dialog header, .characters-dialog header, .clues-dialog header {
+.history-dialog header, .characters-dialog header, .clues-dialog header, .settings-dialog header {
   position: sticky;
   top: 0;
   display: flex;
@@ -651,7 +652,7 @@ button:focus-visible, [tabindex]:focus-visible {
   background: #111a21;
 }
 
-.history-dialog h2, .characters-dialog h2, .clues-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
+.history-dialog h2, .characters-dialog h2, .clues-dialog h2, .settings-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
 .close-button { width: 34px; height: 34px; font-size: 22px; }
 .history-list { padding: 8px 28px 30px; }
 
@@ -938,6 +939,32 @@ button:focus-visible, [tabindex]:focus-visible {
 .clue-empty h3 { margin: 18px 0 8px; color: rgba(232, 224, 206, .7); font-weight: 400; }
 .clue-empty p { max-width: 350px; margin: 0; font-size: 12px; line-height: 1.8; }
 
+.settings-dialog {
+  width: min(430px, 90vw);
+  background: linear-gradient(135deg, rgba(64, 74, 75, .24), transparent 45%), #111a21;
+}
+
+.settings-menu { display: grid; gap: 10px; padding: 22px 24px 26px; }
+
+.settings-action {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  align-items: center;
+  min-height: 58px;
+  border: 1px solid rgba(232, 224, 206, .15);
+  padding: 10px 18px;
+  background: rgba(7, 12, 16, .52);
+  color: var(--paper);
+  cursor: pointer;
+  text-align: left;
+  transition: border-color .18s ease, background .18s ease, transform .18s ease;
+}
+
+.settings-action span { color: var(--gold); font-family: var(--display); font-size: 17px; letter-spacing: .12em; }
+.settings-action small { color: rgba(232, 224, 206, .5); font-family: var(--utility); font-size: 10px; letter-spacing: .06em; }
+.settings-action:hover { border-color: var(--gold); background: rgba(35, 45, 49, .78); transform: translateX(3px); }
+.settings-exit span { color: #c38a7d; }
+
 @keyframes rain { to { background-position: 30px 100px; } }
 @keyframes fog-drift { to { transform: translateX(8%); opacity: .7; } }
 @keyframes nudge { 50% { transform: translateX(4px) rotate(-45deg); } }
@@ -953,10 +980,11 @@ button:focus-visible, [tabindex]:focus-visible {
   .portrait-placeholder strong { font-size: 10px; }
   .scene-heading { top: 76px; min-width: 72vw; }
   .scene-heading strong { font-size: 12px; }
-  .dialogue-box { left: 10px; right: 10px; bottom: 10px; min-height: 178px; }
-  .speaker-rail { top: -34px; min-width: 220px; padding: 8px 16px; }
+  .dialogue-box { left: 10px; right: 10px; bottom: 10px; min-height: 178px; grid-template-columns: 112px 1fr; }
+  .speaker-rail { min-width: 0; padding: 20px 10px; }
   .speaker-name { font-size: 15px; }
-  .dialogue-content { min-height: 178px; padding: 42px 30px 40px; }
+  .speaker-role { font-size: 8px; }
+  .dialogue-content { min-height: 178px; padding: 24px 30px 42px 18px; }
   .dialogue-text { font-size: 14px; line-height: 1.75; }
   .choice-panel { left: 18px; right: 18px; width: auto; }
   .choice-prompt { text-align: left; }
