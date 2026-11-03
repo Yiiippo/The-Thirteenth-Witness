@@ -57,7 +57,134 @@
   const clueCount = $("#clue-count");
   const cluesSummary = $("#clues-summary");
   const settingsDialog = $("#settings-dialog");
+  const musicToggle = $("#music-toggle");
+  const musicVolume = $("#music-volume");
+  const musicVolumeValue = $("#music-volume-value");
+  const musicNowPlaying = $("#music-now-playing");
   const toast = $("#toast");
+
+  const audioSettingsKey = "thirteenth-witness-audio-v1";
+  const musicTracks = {
+    nocturne: { title: "肖邦｜升C小调夜曲", src: "./assets/audio/艾薇初次进入庄园、调查爱德华的过去、真结局.mp3" },
+    gnossienne: { title: "萨蒂｜第一号玄秘曲", src: "./assets/audio/书房调查、翻阅旧档案、发现身份矛盾.mp3" },
+    danse: { title: "圣桑｜骷髅之舞", src: "./assets/audio/双胞胎身份揭晓、最后的晚宴、最终反转.mp3" },
+    clair: { title: "德彪西｜月光", src: "./assets/audio/艾薇和爱德华的互动、庄园清晨、人物情感结局.mp3" },
+    mountain: { title: "格里格｜山魔王的宫殿", src: "./assets/audio/玩家发现证据矛盾、追查温室、最后的紧张推理.mp3" },
+    pavane: { title: "福雷｜帕凡舞曲", src: "./assets/audio/塞西莉亚出场、庄园晚宴、奥古斯特的死亡真相.mp3" }
+  };
+  const musicDecks = [new Audio(), new Audio()];
+  musicDecks.forEach((audio) => {
+    audio.loop = true;
+    audio.preload = "auto";
+    audio.volume = 0;
+  });
+  let audioSettings = loadAudioSettings();
+  let activeDeck = 0;
+  let currentTrackId = null;
+  let musicTransition = 0;
+
+  function loadAudioSettings() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(audioSettingsKey));
+      return {
+        enabled: saved?.enabled !== false,
+        volume: Number.isFinite(saved?.volume) ? Math.min(1, Math.max(0, saved.volume)) : 0.38
+      };
+    } catch {
+      return { enabled: true, volume: 0.38 };
+    }
+  }
+
+  function saveAudioSettings() {
+    localStorage.setItem(audioSettingsKey, JSON.stringify(audioSettings));
+  }
+
+  function musicForNode(node) {
+    const id = state.nodeId;
+    if (id.startsWith("end1")) return "nocturne";
+    if (id.startsWith("end3")) return "clair";
+    if (id.startsWith("end2") || id.startsWith("end5")) return "gnossienne";
+    if (id.startsWith("end4")) return "nocturne";
+    if (node.chapter === "prologue") return "nocturne";
+    if (node.chapter === "chapter1") return "gnossienne";
+    if (node.chapter === "chapter2") return /^(cecilia|c2)/.test(id) ? "pavane" : "gnossienne";
+    if (node.chapter === "chapter3") return "gnossienne";
+    if (node.chapter === "chapter4") return "clair";
+    if (node.chapter === "chapter5") return "danse";
+    if (node.chapter === "chapter6") {
+      if (/^(greenhouse|icehouse)/.test(id)) return "mountain";
+      if (id.startsWith("identity")) return "pavane";
+      return "danse";
+    }
+    if (node.chapter === "chapter7") return "mountain";
+    return "nocturne";
+  }
+
+  function updateMusicUI() {
+    musicToggle.textContent = audioSettings.enabled ? "开启" : "关闭";
+    musicToggle.setAttribute("aria-pressed", String(audioSettings.enabled));
+    musicVolume.value = String(Math.round(audioSettings.volume * 100));
+    musicVolumeValue.textContent = `${Math.round(audioSettings.volume * 100)}%`;
+    musicNowPlaying.textContent = currentTrackId && musicTracks[currentTrackId]
+      ? musicTracks[currentTrackId].title
+      : audioSettings.enabled ? "等待剧情开始" : "音乐已关闭";
+  }
+
+  function stopMusic() {
+    musicTransition += 1;
+    musicDecks.forEach((audio) => {
+      audio.pause();
+      audio.volume = 0;
+    });
+    currentTrackId = null;
+    updateMusicUI();
+  }
+
+  function switchMusic(trackId, force = false) {
+    if (!audioSettings.enabled) return;
+    if (!force && trackId === currentTrackId) return;
+    const track = musicTracks[trackId];
+    if (!track) return;
+
+    const token = ++musicTransition;
+    const oldDeck = musicDecks[activeDeck];
+    const nextDeckIndex = activeDeck === 0 ? 1 : 0;
+    const nextDeck = musicDecks[nextDeckIndex];
+    nextDeck.pause();
+    nextDeck.src = track.src;
+    nextDeck.currentTime = 0;
+    nextDeck.volume = 0;
+
+    nextDeck.play().then(() => {
+      const started = performance.now();
+      const duration = 1400;
+      const oldVolume = oldDeck.volume;
+      const fade = (now) => {
+        if (token !== musicTransition) return;
+        const progress = Math.min(1, (now - started) / duration);
+        nextDeck.volume = audioSettings.volume * progress;
+        oldDeck.volume = oldVolume * (1 - progress);
+        if (progress < 1) {
+          requestAnimationFrame(fade);
+        } else {
+          oldDeck.pause();
+          oldDeck.volume = 0;
+          activeDeck = nextDeckIndex;
+        }
+      };
+      requestAnimationFrame(fade);
+    }).catch(() => {
+      currentTrackId = null;
+      musicNowPlaying.textContent = "点击游戏画面后播放";
+    });
+
+    currentTrackId = trackId;
+    updateMusicUI();
+  }
+
+  function updateMusicForNode(node, force = false) {
+    switchMusic(musicForNode(node), force);
+  }
 
   function startGame(fromSave = false) {
     if (!fromSave) resetState();
@@ -136,6 +263,7 @@
     caseNumber.textContent = chapter.caseNumber;
 
     scene.className = `scene scene-${node.scene || "manor"}`;
+    updateMusicForNode(node);
 
     if (node.portrait) {
       portraitImage.src = node.portrait;
@@ -478,6 +606,7 @@
     gameScreen.classList.add("is-hidden");
     titleScreen.classList.remove("is-hidden");
     updateContinueButton();
+    switchMusic("nocturne");
   }
 
   $("#new-game").addEventListener("click", () => startGame(false));
@@ -489,6 +618,23 @@
   dialogueBox.addEventListener("click", advance);
   $("#settings-button").addEventListener("click", showSettings);
   $("#close-settings").addEventListener("click", () => settingsDialog.close());
+  musicToggle.addEventListener("click", () => {
+    audioSettings.enabled = !audioSettings.enabled;
+    saveAudioSettings();
+    if (audioSettings.enabled) {
+      updateMusicUI();
+      const node = story.nodes[state.nodeId];
+      if (node) updateMusicForNode(node, true);
+    } else {
+      stopMusic();
+    }
+  });
+  musicVolume.addEventListener("input", () => {
+    audioSettings.volume = Number(musicVolume.value) / 100;
+    musicVolumeValue.textContent = `${musicVolume.value}%`;
+    musicDecks[activeDeck].volume = audioSettings.enabled ? audioSettings.volume : 0;
+    saveAudioSettings();
+  });
   $("#save-button").addEventListener("click", () => {
     settingsDialog.close();
     saveGame();
@@ -516,7 +662,14 @@
     }
   });
 
+  document.addEventListener("pointerdown", () => {
+    if (!audioSettings.enabled || currentTrackId || gameScreen.classList.contains("is-hidden")) return;
+    const node = story.nodes[state.nodeId];
+    if (node) updateMusicForNode(node, true);
+  }, { passive: true });
+
   updateContinueButton();
   updateClueCount();
+  updateMusicUI();
 })();
 

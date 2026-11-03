@@ -946,6 +946,35 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .settings-menu { display: grid; gap: 10px; padding: 22px 24px 26px; }
 
+.music-settings {
+  margin-bottom: 6px;
+  border: 1px solid rgba(184, 154, 98, .22);
+  padding: 16px 18px;
+  background: rgba(8, 14, 18, .48);
+}
+
+.music-heading { display: flex; justify-content: space-between; align-items: center; gap: 18px; }
+.music-heading span { display: block; margin-bottom: 5px; font-size: 15px; letter-spacing: .1em; }
+.music-heading small { display: block; max-width: 250px; overflow: hidden; color: rgba(232, 224, 206, .48); font-family: var(--utility); font-size: 9px; letter-spacing: .05em; text-overflow: ellipsis; white-space: nowrap; }
+
+.music-toggle {
+  min-width: 62px;
+  border: 1px solid rgba(184, 154, 98, .48);
+  padding: 7px 10px;
+  background: rgba(184, 154, 98, .12);
+  color: var(--gold);
+  cursor: pointer;
+  font-family: var(--utility);
+  font-size: 10px;
+  letter-spacing: .1em;
+}
+
+.music-toggle[aria-pressed="false"] { border-color: rgba(232, 224, 206, .18); background: transparent; color: rgba(232, 224, 206, .45); }
+
+.volume-control { display: grid; grid-template-columns: 38px 1fr 38px; align-items: center; gap: 10px; margin-top: 16px; color: rgba(232, 224, 206, .62); font-family: var(--utility); font-size: 10px; }
+.volume-control input { width: 100%; accent-color: var(--gold); cursor: pointer; }
+.volume-control output { color: var(--gold); text-align: right; }
+
 .settings-action {
   display: grid;
   grid-template-columns: 74px 1fr;

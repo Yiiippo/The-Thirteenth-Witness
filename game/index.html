@@ -139,6 +139,20 @@
         <button id="close-settings" class="close-button" type="button" aria-label="关闭">×</button>
       </header>
       <div class="settings-menu">
+        <section class="music-settings" aria-labelledby="music-settings-title">
+          <div class="music-heading">
+            <div>
+              <span id="music-settings-title">背景音乐</span>
+              <small id="music-now-playing">尚未播放</small>
+            </div>
+            <button id="music-toggle" class="music-toggle" type="button" aria-pressed="true">开启</button>
+          </div>
+          <label class="volume-control" for="music-volume">
+            <span>音量</span>
+            <input id="music-volume" type="range" min="0" max="100" value="38" step="1">
+            <output id="music-volume-value" for="music-volume">38%</output>
+          </label>
+        </section>
         <button id="save-button" class="settings-action" type="button">
           <span>保存</span><small>保存当前调查进度</small>
         </button>
