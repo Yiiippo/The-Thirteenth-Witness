@@ -30,6 +30,8 @@
 - [05_Endings.md](05_Endings.md)：五个正式结局及触发条件
 - [06_Art_Guidelines.md](06_Art_Guidelines.md)：艾薇风格锚点、场景与素材清单
 - [07_Development_Plan.md](07_Development_Plan.md)：开发路线、风险和下一开发日计划
+- [08_Full_Game_Script.md](08_Full_Game_Script.md)：七章完整可制作剧本、主要对白与十项选择
+- [09_Choice_Matrix.md](09_Choice_Matrix.md)：全部选项、变量影响、前置条件与结局映射
 
 ## 三项统一修订
 
@@ -42,4 +44,5 @@
 - 角色数据始终区分肉身身份、当时使用身份、证人以为的身份。
 - 证词始终区分真实日期、玩家初始理解、实际对象、信息媒介。
 - 锁定事实只能通过用户确认修改；推测不得写进正式台词或宣传文案。
+- 完整对话中的旧版本只作结构参考；凡与方案 A 冲突者，以方案 A 为准。
 
