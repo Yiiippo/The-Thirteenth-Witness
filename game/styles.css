@@ -241,6 +241,28 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .scene-hall .rain, .scene-study .rain, .scene-closeup .rain { opacity: 0; }
 
+.scene-drawing, .scene-bedroom, .scene-dining, .scene-archive,
+.scene-greenhouse, .scene-icehouse, .scene-dawn {
+  --scene-sky: #2b3030;
+  --scene-mid: #1b2222;
+  --scene-ground: #0b1011;
+}
+
+.scene-drawing .architecture {
+  inset: 0;
+  background: radial-gradient(circle at 70% 38%, rgba(190, 139, 72, .22), transparent 18%), repeating-linear-gradient(90deg, rgba(8, 10, 10, .72) 0 3%, transparent 3% 24%);
+}
+.scene-bedroom .architecture { inset: 0; background: linear-gradient(90deg, rgba(7, 9, 10, .8) 0 18%, transparent 18% 76%, rgba(7, 9, 10, .72) 76%), radial-gradient(ellipse at 60% 45%, rgba(143, 109, 69, .2), transparent 35%); }
+.scene-dining .architecture { inset: 18% 8% 0 34%; background: linear-gradient(180deg, transparent 0 58%, rgba(5, 7, 8, .86) 58%), repeating-linear-gradient(90deg, rgba(192, 143, 73, .08) 0 2%, transparent 2% 10%); clip-path: polygon(4% 0, 96% 0, 100% 100%, 0 100%); }
+.scene-archive .architecture { inset: 0; background: repeating-linear-gradient(90deg, rgba(5, 8, 9, .8) 0 3%, transparent 3% 15%), repeating-linear-gradient(0deg, transparent 0 12%, rgba(171, 141, 96, .08) 12% 13%); }
+.scene-greenhouse { --scene-sky: #26332f; --scene-mid: #17221e; --scene-ground: #0a100d; }
+.scene-greenhouse .architecture { inset: 5% 12% 0 34%; border: 1px solid rgba(182, 203, 185, .13); background: repeating-linear-gradient(72deg, transparent 0 14%, rgba(167, 191, 173, .13) 14.5% 15%, transparent 15.5% 29%); clip-path: polygon(50% 0, 100% 28%, 100% 100%, 0 100%, 0 28%); }
+.scene-icehouse { --scene-sky: #26353b; --scene-mid: #16262d; --scene-ground: #081015; }
+.scene-icehouse .architecture { inset: 0; background: radial-gradient(ellipse at 66% 50%, rgba(166, 196, 201, .13), transparent 34%), repeating-linear-gradient(105deg, rgba(198, 218, 219, .04) 0 3%, transparent 3% 20%); }
+.scene-dawn { --scene-sky: #6b7375; --scene-mid: #38464b; --scene-ground: #131b1f; }
+.scene-dawn .architecture { inset: 23% 8% 0 38%; background: #10171b; clip-path: polygon(0 100%, 0 35%, 16% 35%, 16% 15%, 30% 15%, 30% 30%, 48% 30%, 48% 0, 64% 0, 64% 32%, 82% 32%, 82% 18%, 94% 18%, 94% 100%); }
+.scene-drawing .rain, .scene-bedroom .rain, .scene-dining .rain, .scene-archive .rain, .scene-icehouse .rain { opacity: 0; }
+
 .vignette {
   pointer-events: none;
   background:
@@ -276,6 +298,22 @@ button:focus-visible, [tabindex]:focus-visible {
 }
 
 .top-actions { display: flex; gap: 7px; }
+
+.scene-heading {
+  position: absolute;
+  z-index: 6;
+  top: 22px;
+  left: 50%;
+  min-width: min(360px, 38vw);
+  padding: 5px 30px 9px;
+  text-align: center;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, transparent, rgba(5, 10, 13, .72) 18% 82%, transparent);
+  pointer-events: none;
+}
+.scene-heading::after { content: ""; position: absolute; left: 14%; right: 14%; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: .55; }
+.scene-heading span { display: block; margin-bottom: 2px; color: var(--gold); font-family: var(--utility); font-size: 8px; letter-spacing: .32em; }
+.scene-heading strong { font-size: 14px; font-weight: 400; letter-spacing: .15em; text-shadow: 0 2px 12px #000; }
 
 .utility-button, .close-button {
   border: 1px solid rgba(232, 224, 206, .16);
@@ -406,9 +444,8 @@ button:focus-visible, [tabindex]:focus-visible {
   left: clamp(16px, 4vw, 64px);
   right: clamp(16px, 4vw, 64px);
   bottom: 28px;
-  min-height: 154px;
-  display: grid;
-  grid-template-columns: 160px 1fr;
+  min-height: 172px;
+  display: block;
   border: 1px solid var(--line);
   background:
     linear-gradient(110deg, rgba(26, 38, 46, .96), var(--glass) 46%),
@@ -427,37 +464,49 @@ button:focus-visible, [tabindex]:focus-visible {
 }
 
 .speaker-rail {
-  padding: 30px 24px;
-  border-right: 1px solid var(--line);
+  position: absolute;
+  z-index: 2;
+  top: -37px;
+  left: 50%;
+  min-width: 270px;
+  padding: 10px 28px 9px;
+  border: 1px solid var(--line);
+  background: rgba(9, 16, 21, .94);
+  text-align: center;
+  transform: translateX(-50%);
+  box-shadow: 0 9px 26px rgba(0, 0, 0, .34);
 }
 
 .speaker-name {
-  margin: 0 0 12px;
+  margin: 0 0 4px;
   color: var(--paper);
   font-family: var(--display);
-  font-size: 20px;
+  font-size: 18px;
   letter-spacing: .13em;
 }
 
-.scene-label {
+.speaker-role {
   margin: 0;
-  color: rgba(232, 224, 206, .42);
+  color: rgba(232, 224, 206, .48);
   font-family: var(--utility);
   font-size: 9px;
-  line-height: 1.6;
-  letter-spacing: .1em;
+  line-height: 1.5;
+  letter-spacing: .12em;
 }
 
 .dialogue-content {
   position: relative;
   display: flex;
   align-items: center;
-  padding: 28px 90px 28px 34px;
+  min-height: 172px;
+  justify-content: center;
+  padding: 44px 90px 26px;
+  text-align: center;
 }
 
 .dialogue-text {
   margin: 0;
-  max-width: 900px;
+  max-width: 980px;
   font-size: clamp(15px, 1.55vw, 20px);
   line-height: 1.85;
   letter-spacing: .045em;
@@ -902,10 +951,12 @@ button:focus-visible, [tabindex]:focus-visible {
   .case-stamp { display: none; }
   .portrait-slot { left: -5vw; width: 58vw; height: 60vh; bottom: 180px; }
   .portrait-placeholder strong { font-size: 10px; }
-  .dialogue-box { left: 10px; right: 10px; bottom: 10px; grid-template-columns: 105px 1fr; min-height: 165px; }
-  .speaker-rail { padding: 24px 14px; }
+  .scene-heading { top: 76px; min-width: 72vw; }
+  .scene-heading strong { font-size: 12px; }
+  .dialogue-box { left: 10px; right: 10px; bottom: 10px; min-height: 178px; }
+  .speaker-rail { top: -34px; min-width: 220px; padding: 8px 16px; }
   .speaker-name { font-size: 15px; }
-  .dialogue-content { padding: 22px 30px 44px 18px; }
+  .dialogue-content { min-height: 178px; padding: 42px 30px 40px; }
   .dialogue-text { font-size: 14px; line-height: 1.75; }
   .choice-panel { left: 18px; right: 18px; width: auto; }
   .choice-prompt { text-align: left; }
@@ -934,3 +985,4 @@ button:focus-visible, [tabindex]:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+

@@ -2,14 +2,23 @@
   "use strict";
 
   const story = window.GAME_STORY;
-  const saveKey = "thirteenth-witness-save-v3";
+  const saveKey = "thirteenth-witness-save-v4";
   const state = {
     nodeId: story.start,
     variables: {
       edward_trust: 0,
       witness_trust: 0,
       independent_evidence: 0,
-      contaminated_testimony: 0
+      contaminated_testimony: 0,
+      clue_identity: 0,
+      clue_medical: 0,
+      clue_timeline: 0,
+      clue_archive: 0,
+      clue_testimony: 0,
+      true_route: 0,
+      trust_cecilia: 0,
+      trust_lucian: 0,
+      trust_margaret: 0
     },
     evidence: [],
     history: [],
@@ -26,6 +35,7 @@
   const dialogueBox = $("#dialogue-box");
   const dialogueText = $("#dialogue-text");
   const speakerName = $("#speaker-name");
+  const speakerRole = $("#speaker-role");
   const sceneLabel = $("#scene-label");
   const chapterKicker = $("#chapter-kicker");
   const chapterTitle = $("#chapter-title");
@@ -61,7 +71,16 @@
       edward_trust: 0,
       witness_trust: 0,
       independent_evidence: 0,
-      contaminated_testimony: 0
+      contaminated_testimony: 0,
+      clue_identity: 0,
+      clue_medical: 0,
+      clue_timeline: 0,
+      clue_archive: 0,
+      clue_testimony: 0,
+      true_route: 0,
+      trust_cecilia: 0,
+      trust_lucian: 0,
+      trust_margaret: 0
     };
     state.evidence = [];
     state.history = [];
@@ -89,6 +108,7 @@
     choicePanel.classList.add("is-hidden");
     dialogueBox.classList.remove("is-hidden");
     speakerName.textContent = node.speaker || "旁白";
+    speakerRole.textContent = getSpeakerRole(node.speaker);
     sceneLabel.textContent = node.place || "";
     dialogueText.classList.toggle("is-narration", node.speaker === "旁白");
 
@@ -99,6 +119,13 @@
     }
 
     typeText(node.text || "");
+  }
+
+  function getSpeakerRole(speaker) {
+    if (!speaker || speaker === "旁白") return "调查叙述";
+    if (speaker === "线索") return "案件证据";
+    const character = story.characters.find((item) => item.speaker === speaker);
+    return character ? character.role : "案件相关人物";
   }
 
   function applyPresentation(node) {
@@ -164,7 +191,7 @@
     recordHistory(node.speaker, node.text);
 
     if (node.end) {
-      showToast("原型内容已播放完毕");
+      showToast("本次调查已经结束");
       return;
     }
 
@@ -201,7 +228,10 @@
         }
       });
     }
-    state.nodeId = option.next;
+    const nextNode = option.resolve === "ending" && typeof story.resolveEnding === "function"
+      ? story.resolveEnding(option.key, state.variables, state.evidence)
+      : option.next;
+    state.nodeId = nextNode;
     renderNode();
   }
 

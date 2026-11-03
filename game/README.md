@@ -1,6 +1,6 @@
 # 《第十三位证人》浏览器游戏
 
-> 状态：方案 A 第一版完整剧本已经接入序章与第一章；所有正式台词、选项和顺序均可追溯到 A1 原稿。
+> 状态：方案 A 开发实施版已接入序章、全七章、十次选择与五个结局。
 
 ## 运行
 
@@ -8,15 +8,15 @@
 
 当前包含：
 
-- A1 原稿序章《没有写名字的邀请函》
-- A1 原稿第一章《第十二份证词》
-- 原始选择1的三个选项
-- A分支沿用原稿；B/C分支采用用户确认的13号开发补写稿
-- 三条分支分别获得“第一发现者”“十月二十七日会面”“预先封好的第十三封信”
+- A1 原稿的章节顺序、主要场景、A分支与正式选择句
+- 用户确认的13号开发补写稿全部选择分支
+- 14号锁定决议中的温室事故、冰窖时间线、身份鉴定与邀请函真相
+- 十次正式选择、分支变量、线索回流与五个结局
 - 角色档案：角色在场景中登场后点亮
 - 线索档案、调查记录、本地保存与读取
-- 庄园门前、门厅、书房和证物特写场景占位
+- 庄园外景、大厅、书房、会客厅、档案室、卧室、餐厅、温室、冰窖和清晨场景占位
 - 左侧透明角色立绘预留位
+- 场景名位于画面顶部中央；底部居中显示人物姓名与身份
 - 手机和桌面自适应布局
 
 ## 来源规则
@@ -25,6 +25,8 @@
 - 最终案件事实修订：`../project_docs_v3/10B_Scheme_A_Final_Case_Setting.md`
 - 冲突与开放项：`../project_docs_v3/11_Contradictions_and_Open_Questions.md`
 - 实施准入：`../project_docs_v3/12_Development_Implementation.md`
+- 已批准分支：`../project_docs_v3/13_Development_Branch_Script.md`
+- 最终锁定答案：`../project_docs_v3/14_Locked_Resolutions.md`
 
 ## 替换角色立绘
 
@@ -43,10 +45,12 @@ portrait: "./assets/characters/ivy-neutral.png"
 - `.scene-hall`：门厅与走廊
 - `.scene-study`：书房
 - `.scene-closeup`：信件、尸体与证物特写
+- `.scene-drawing`、`.scene-archive`、`.scene-bedroom`、`.scene-dining`：室内章节场景
+- `.scene-greenhouse`、`.scene-icehouse`、`.scene-dawn`：关键真相与结局场景
 
-## 后续接入限制
+## 内容边界
 
-选择2–9的缺失分支已经在13号文档中确认；第二章起将依次接入。第六、七章使用14号锁定的身份鉴定、冰窖和邀请函答案完成真相桥接。
+原始方案 A 文档保持逐字存档；游戏读取的是经过用户确认的开发实施层。没有把背景开放项擅自写入既定事实。
 
 冻结状态版已备份到 `../drafts/content_freeze_game/`；旧 Codex 改编仍位于 `../drafts/unapproved_adaptation/game/`，两者都不会被正式游戏读取。
 
