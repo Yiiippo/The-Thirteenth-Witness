@@ -327,10 +327,14 @@
     caseNumber.textContent = chapter.caseNumber;
 
     scene.className = `scene scene-${node.scene || "manor"}`;
+    sceneLabel.textContent = node.place || "";
     updateMusicForNode(node);
 
-    if (node.portrait) {
-      portraitImage.src = node.portrait;
+    const speakerCharacter = story.characters.find((item) => item.speaker === node.speaker);
+    const portraitSrc = node.portrait || (speakerCharacter ? speakerCharacter.avatar : "");
+
+    if (portraitSrc) {
+      portraitImage.src = portraitSrc;
       portraitImage.alt = `${node.speaker || "角色"}立绘`;
       portraitSlot.classList.remove("is-empty");
       portraitSlot.classList.add("has-image");

@@ -168,7 +168,7 @@
   seq("c7c", B.b4, [n("旁白", "照片、名单和撕页压痕共同指向那个未编号男孩。"), n("爱德华", "那是我。"), n("艾薇", "这次不是记忆，是三份材料共同证明。"), n("线索", "第十三位证人照片\n\n爱德华是1877年的儿童观察者。", "第十三位证人照片")], "witness13000");
   seq("witness13", B.b4, [n("艾薇", "有人看影子，有人听声音，有人收到信。他们描述一个身份，却没有确认使用身份的人。"), n("艾薇", "只有您可能真正分辨过那两个人。爱德华，您就是第十三位证人。")], "dinner000");
 
-  seq("dinner", B.d5, [n("旁白", "所有人重新聚集。长桌上摆着十三只茶杯，十二份证词按日期摊开。"), n("爱德华", "请再回答一次：你们究竟什么时候见过我的父亲？"), n("艾薇", "这次不替证词补日期，也不把名字自动等同于同一个人。")], "choice8");
+  seq("dinner", B.d5, [n("旁白", "所有人重新聚集。长桌上摆着十三只茶杯，十二份证词按日期摊开。", null, { unlock: ["isabel"] }), n("爱德华", "请再回答一次：你们究竟什么时候见过我的父亲？"), n("艾薇", "这次不替证词补日期，也不把名字自动等同于同一个人。")], "choice8");
   choice("choice8", B.d5, "你认为十二份证词最关键的矛盾是什么？", [
     { key: "A", text: "十二个人对外貌的描述不同", next: "c8a000", set: { clue_testimony: 1 } },
     { key: "B", text: "没有人能提供完整、独立的身份确认", next: "c8b000", set: { clue_testimony: 2, independent_evidence: 1 } },
@@ -265,8 +265,9 @@
     ["lucian", "卢西安·克罗", "Lucian Crow", "卢西安", "旅行作家", "LC"],
     ["algernon", "阿尔杰农·维尔", "Algernon Vale", "阿尔杰农", "爱德华的父亲", "AV"],
     ["august", "奥古斯特·维尔", "August Vale", "奥古斯特", "阿尔杰农的双胞胎弟弟", "AV"],
-    ["edmund", "埃德蒙·格雷", "Edmund Grey", "埃德蒙", "退休律师", "EG"]
-  ].map(([id, name, english, speaker, role, initials]) => ({ id, name, english, speaker, role, initials, avatar: "" }));
+    ["edmund", "埃德蒙·格雷", "Edmund Grey", "埃德蒙", "退休律师", "EG"],
+    ["isabel", "伊莎贝尔", "Isabel", "伊莎贝尔", "前任女仆 · W06", "IS"]
+  ].map(([id, name, english, speaker, role, initials]) => ({ id, name, english, speaker, role, initials, avatar: `./assets/characters/${id}-neutral.png` }));
 
   const clueMeta = {
     "第一发现者": ["人物证词", "选择1", "阿瑟在凌晨前进入书房整理文件并发现尸体；他是否第一时间报告，仍需与书房记录核对。"],

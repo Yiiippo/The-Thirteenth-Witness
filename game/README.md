@@ -15,7 +15,7 @@
 - 角色档案：角色在场景中登场后点亮
 - 线索档案、调查记录、本地保存与读取
 - 庄园外景、大厅、书房、会客厅、档案室、卧室、餐厅、温室、冰窖和清晨场景占位
-- 左侧透明角色立绘预留位
+- 左侧角色立绘：角色说话时自动显示，并同步到角色档案
 - 场景名位于画面顶部中央；底部左侧显示人物姓名与简短身份
 - 右上角“设置”集中提供保存、读取和退出
 - 六首古典配乐按章节自动切换、循环和淡入淡出；设置中可开关并调节音量
@@ -43,14 +43,11 @@
 - 已批准分支：`../project_docs_v3/13_Development_Branch_Script.md`
 - 最终锁定答案：`../project_docs_v3/14_Locked_Resolutions.md`
 
-## 替换角色立绘
+## 角色立绘
 
-1. 将透明 PNG 放入 `assets/characters/`。
-2. 在 `story.js` 对应对白节点填写：
-
-```js
-portrait: "./assets/characters/ivy-neutral.png"
-```
+- 立绘位于 `assets/characters/`，按 `<角色id>-neutral.png` 命名（如 `ivy-neutral.png`、`edward-neutral.png`）。
+- `story.js` 的角色表会按 id 自动生成 `avatar` 路径：角色档案显示头像，角色说话时左侧显示立绘。
+- 若某句对白需要临时换图，可在该节点写 `portrait: "./assets/characters/xxx.png"`，会覆盖自动立绘。
 
 ## 替换正式背景
 
