@@ -321,15 +321,15 @@
       info.className = "character-card-info";
 
       const chineseName = document.createElement("h3");
-      chineseName.textContent = unlocked ? character.name : "尚未登场";
+      chineseName.textContent = character.name;
 
       const englishName = document.createElement("p");
       englishName.className = "character-english";
-      englishName.textContent = unlocked ? character.english : "UNKNOWN";
+      englishName.textContent = character.english;
 
       const role = document.createElement("p");
       role.className = "character-role";
-      role.textContent = unlocked ? character.role : "继续调查以登记身份";
+      role.textContent = character.role;
 
       const status = document.createElement("span");
       status.className = "character-status";
