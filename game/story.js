@@ -1,6 +1,24 @@
 window.GAME_STORY = {
   title: "第十三位证人",
   start: "p000",
+  characters: [
+    { id: "ivy", name: "艾薇·贝尔", english: "Ivy Bell", speaker: "艾薇", role: "独立调查者；第十三封邀请函的收件人", initials: "IB", avatar: "" },
+    { id: "edward", name: "爱德华·维尔", english: "Edward Vale", speaker: "爱德华", role: "庄园继承人、调查委托人；隐藏的第十三位证人", initials: "EV", avatar: "" },
+    { id: "algernon", name: "阿尔杰农·维尔", english: "Algernon Vale", speaker: "阿尔杰农", role: "维尔家长子、庄园正式继承人", initials: "AV", avatar: "" },
+    { id: "august", name: "奥古斯特·维尔", english: "August Vale", speaker: "奥古斯特", role: "阿尔杰农的双胞胎弟弟", initials: "AV", avatar: "" },
+    { id: "arthur", name: "阿瑟", english: "Arthur", speaker: "阿瑟", role: "雾鸦庄园老管家；书房尸体的发现者", initials: "AR", avatar: "" },
+    { id: "julian", name: "朱利安", english: "Julian", speaker: "朱利安", role: "维尔家的家庭医生", initials: "JU", avatar: "" },
+    { id: "cecilia", name: "塞西莉亚", english: "Cecilia", speaker: "塞西莉亚", role: "庄园女主人；第一位公开证人", initials: "CE", avatar: "" },
+    { id: "margaret", name: "玛格丽特", english: "Margaret", speaker: "玛格丽特", role: "维尔家的家庭教师", initials: "MA", avatar: "" },
+    { id: "lucian", name: "卢西安", english: "Lucian", speaker: "卢西安", role: "旅行作家；受邀到场的公开证人", initials: "LU", avatar: "" },
+    { id: "isabel", name: "伊莎贝尔", english: "Isabel", speaker: "伊莎贝尔", role: "雾鸦庄园前任女仆", initials: "IS", avatar: "" },
+    { id: "thomas", name: "托马斯", english: "Thomas", speaker: "托马斯", role: "维尔家的马车夫", initials: "TH", avatar: "" },
+    { id: "henry", name: "亨利", english: "Henry", speaker: "亨利", role: "维尔家的现任家族律师", initials: "HE", avatar: "" },
+    { id: "eileen", name: "艾琳", english: "Eileen", speaker: "艾琳", role: "旧温室管理员", initials: "EI", avatar: "" },
+    { id: "william", name: "威廉", english: "William", speaker: "威廉", role: "维尔家的家族摄影师", initials: "WI", avatar: "" },
+    { id: "george", name: "乔治", english: "George", speaker: "乔治", role: "负责庄园古董钟的维修工", initials: "GE", avatar: "" },
+    { id: "edmund", name: "埃德蒙·格雷", english: "Edmund Grey", speaker: "埃德蒙", role: "退休事务律师；第十二位公开证人", initials: "EG", avatar: "" }
+  ],
   chapters: {
     prologue: { kicker: "序章", title: "第十三封邀请函", caseNumber: "XIII" },
     chapter1: { kicker: "第一章", title: "一个名字的尸体", caseNumber: "01" }

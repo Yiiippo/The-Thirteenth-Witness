@@ -13,6 +13,7 @@
     },
     evidence: [],
     history: [],
+    unlockedCharacters: [],
     typing: false,
     typeTimer: null,
     fullText: ""
@@ -37,6 +38,10 @@
   const progressFill = $("#progress-fill");
   const historyDialog = $("#history-dialog");
   const historyList = $("#history-list");
+  const charactersDialog = $("#characters-dialog");
+  const characterGrid = $("#character-grid");
+  const characterCount = $("#character-count");
+  const charactersSummary = $("#characters-summary");
   const toast = $("#toast");
 
   function startGame(fromSave = false) {
@@ -56,6 +61,8 @@
     };
     state.evidence = [];
     state.history = [];
+    state.unlockedCharacters = [];
+    updateCharacterCount();
   }
 
   function renderNode() {
@@ -63,6 +70,7 @@
     if (!node) return;
 
     clearTyping();
+    unlockSpeaker(node.speaker);
     applyPresentation(node);
     updateProgress();
 
@@ -208,6 +216,7 @@
       variables: state.variables,
       evidence: state.evidence,
       history: state.history,
+      unlockedCharacters: state.unlockedCharacters,
       savedAt: new Date().toISOString()
     };
     localStorage.setItem(saveKey, JSON.stringify(payload));
@@ -228,6 +237,10 @@
       state.variables = { ...state.variables, ...(payload.variables || {}) };
       state.evidence = Array.isArray(payload.evidence) ? payload.evidence : [];
       state.history = Array.isArray(payload.history) ? payload.history : [];
+      state.unlockedCharacters = Array.isArray(payload.unlockedCharacters)
+        ? payload.unlockedCharacters
+        : inferUnlockedCharacters(state.history);
+      updateCharacterCount();
       startGame(true);
       showToast("调查记录已读取");
     } catch {
@@ -254,6 +267,82 @@
       });
     }
     historyDialog.showModal();
+  }
+
+  function unlockSpeaker(speaker) {
+    if (!speaker || speaker === "旁白") return;
+    const character = story.characters.find((item) => item.speaker === speaker);
+    if (!character || state.unlockedCharacters.includes(character.id)) return;
+    state.unlockedCharacters.push(character.id);
+    updateCharacterCount();
+    window.setTimeout(() => showToast(`角色档案已更新：${character.name}`), 220);
+  }
+
+  function inferUnlockedCharacters(history) {
+    const speakers = new Set((history || []).map((entry) => entry.speaker));
+    return story.characters
+      .filter((character) => speakers.has(character.speaker))
+      .map((character) => character.id);
+  }
+
+  function updateCharacterCount() {
+    const count = state.unlockedCharacters.length;
+    characterCount.textContent = count;
+    charactersSummary.textContent = `已登记 ${count} / ${story.characters.length} 人`;
+  }
+
+  function showCharacters() {
+    characterGrid.replaceChildren();
+
+    story.characters.forEach((character, index) => {
+      const unlocked = state.unlockedCharacters.includes(character.id);
+      const card = document.createElement("article");
+      card.className = `character-card ${unlocked ? "is-unlocked" : "is-locked"}`;
+
+      const portrait = document.createElement("div");
+      portrait.className = "character-card-portrait";
+
+      if (unlocked && character.avatar) {
+        const image = document.createElement("img");
+        image.src = character.avatar;
+        image.alt = `${character.name}头像`;
+        portrait.appendChild(image);
+      } else {
+        const initials = document.createElement("span");
+        initials.textContent = unlocked ? character.initials : "—";
+        portrait.appendChild(initials);
+      }
+
+      const number = document.createElement("small");
+      number.className = "character-index";
+      number.textContent = String(index + 1).padStart(2, "0");
+
+      const info = document.createElement("div");
+      info.className = "character-card-info";
+
+      const chineseName = document.createElement("h3");
+      chineseName.textContent = unlocked ? character.name : "尚未登场";
+
+      const englishName = document.createElement("p");
+      englishName.className = "character-english";
+      englishName.textContent = unlocked ? character.english : "UNKNOWN";
+
+      const role = document.createElement("p");
+      role.className = "character-role";
+      role.textContent = unlocked ? character.role : "继续调查以登记身份";
+
+      const status = document.createElement("span");
+      status.className = "character-status";
+      status.textContent = unlocked ? "已登记" : "未登记";
+
+      portrait.append(number);
+      info.append(chineseName, englishName, role);
+      card.append(portrait, info, status);
+      characterGrid.appendChild(card);
+    });
+
+    updateCharacterCount();
+    charactersDialog.showModal();
   }
 
   function showToast(message) {
@@ -286,9 +375,11 @@
   $("#menu-button").addEventListener("click", returnToTitle);
   $("#history-button").addEventListener("click", showHistory);
   $("#close-history").addEventListener("click", () => historyDialog.close());
+  $("#characters-button").addEventListener("click", showCharacters);
+  $("#close-characters").addEventListener("click", () => charactersDialog.close());
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();

@@ -292,6 +292,23 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .utility-button:hover { color: var(--paper); border-color: var(--gold); }
 
+.character-button {
+  border-color: rgba(184, 154, 98, .38);
+}
+
+.button-count {
+  display: inline-grid;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  place-items: center;
+  border: 1px solid rgba(184, 154, 98, .45);
+  border-radius: 50%;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 10px;
+}
+
 .case-stamp {
   position: absolute;
   z-index: 2;
@@ -558,7 +575,7 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 
-.history-dialog {
+.history-dialog, .characters-dialog {
   width: min(760px, 90vw);
   max-height: 78vh;
   border: 1px solid var(--line);
@@ -568,9 +585,9 @@ button:focus-visible, [tabindex]:focus-visible {
   box-shadow: 0 30px 100px #000;
 }
 
-.history-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
+.history-dialog::backdrop, .characters-dialog::backdrop { background: rgba(2, 5, 7, .78); backdrop-filter: blur(5px); }
 
-.history-dialog header {
+.history-dialog header, .characters-dialog header {
   position: sticky;
   top: 0;
   display: flex;
@@ -581,7 +598,7 @@ button:focus-visible, [tabindex]:focus-visible {
   background: #111a21;
 }
 
-.history-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
+.history-dialog h2, .characters-dialog h2 { margin: 0; font-weight: 400; letter-spacing: .12em; }
 .close-button { width: 34px; height: 34px; font-size: 22px; }
 .history-list { padding: 8px 28px 30px; }
 
@@ -596,6 +613,146 @@ button:focus-visible, [tabindex]:focus-visible {
 .history-entry strong { color: var(--gold); font-weight: 400; }
 .history-entry p { margin: 0; color: rgba(232, 224, 206, .76); line-height: 1.7; }
 
+.characters-dialog {
+  width: min(1040px, 94vw);
+  max-height: 86vh;
+  background:
+    linear-gradient(135deg, rgba(31, 42, 49, .35), transparent 45%),
+    #101820;
+}
+
+.dialog-summary {
+  margin: 8px 0 0;
+  color: rgba(232, 224, 206, .46);
+  font-family: var(--utility);
+  font-size: 11px;
+  letter-spacing: .12em;
+}
+
+.character-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding: 22px 26px 30px;
+}
+
+.character-card {
+  position: relative;
+  min-height: 270px;
+  overflow: hidden;
+  border: 1px solid rgba(232, 224, 206, .15);
+  background:
+    linear-gradient(180deg, rgba(68, 83, 88, .22), rgba(9, 15, 19, .95)),
+    #111a20;
+  transition: border-color .2s ease, transform .2s ease, opacity .2s ease;
+}
+
+.character-card.is-unlocked:hover {
+  border-color: rgba(184, 154, 98, .72);
+  transform: translateY(-3px);
+}
+
+.character-card-portrait {
+  position: relative;
+  height: 142px;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-bottom: 1px solid rgba(232, 224, 206, .12);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(205, 196, 172, .15), transparent 35%),
+    linear-gradient(145deg, #273640, #11191f);
+}
+
+.character-card-portrait::after {
+  content: "";
+  position: absolute;
+  width: 70px;
+  height: 105px;
+  bottom: -35px;
+  border: 1px solid rgba(232, 224, 206, .08);
+  border-radius: 52% 52% 10% 10%;
+}
+
+.character-card-portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: sepia(.12) contrast(.96);
+}
+
+.character-card-portrait > span {
+  position: relative;
+  z-index: 1;
+  color: rgba(232, 224, 206, .58);
+  font-family: var(--display);
+  font-size: 34px;
+  letter-spacing: .08em;
+}
+
+.character-index {
+  position: absolute;
+  z-index: 2;
+  top: 9px;
+  left: 11px;
+  color: rgba(184, 154, 98, .55);
+  font-family: var(--display);
+  font-size: 10px;
+  letter-spacing: .12em;
+}
+
+.character-card-info { padding: 15px 16px 34px; }
+
+.character-card h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: .1em;
+}
+
+.character-english {
+  margin: 5px 0 12px;
+  color: var(--gold);
+  font-family: var(--display);
+  font-size: 11px;
+  letter-spacing: .11em;
+}
+
+.character-role {
+  margin: 0;
+  color: rgba(232, 224, 206, .58);
+  font-size: 11px;
+  line-height: 1.65;
+}
+
+.character-status {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 3px 7px;
+  border: 1px solid rgba(184, 154, 98, .32);
+  color: rgba(184, 154, 98, .72);
+  font-family: var(--utility);
+  font-size: 8px;
+  letter-spacing: .12em;
+}
+
+.character-card.is-locked {
+  opacity: .38;
+  filter: grayscale(1);
+}
+
+.character-card.is-locked .character-card-portrait {
+  background:
+    repeating-linear-gradient(135deg, rgba(225, 225, 225, .025) 0 2px, transparent 2px 9px),
+    #182026;
+}
+
+.character-card.is-locked .character-status {
+  border-color: rgba(232, 224, 206, .18);
+  color: rgba(232, 224, 206, .46);
+}
+
 @keyframes rain { to { background-position: 30px 100px; } }
 @keyframes fog-drift { to { transform: translateX(8%); opacity: .7; } }
 @keyframes nudge { 50% { transform: translateX(4px) rotate(-45deg); } }
@@ -605,6 +762,7 @@ button:focus-visible, [tabindex]:focus-visible {
   .top-bar { padding: 16px; }
   .chapter-title { font-size: 12px; }
   .utility-button { padding: 6px 8px; font-size: 10px; }
+  .top-actions { max-width: 235px; flex-wrap: wrap; justify-content: flex-end; }
   .case-stamp { display: none; }
   .portrait-slot { left: -5vw; width: 58vw; height: 60vh; bottom: 180px; }
   .portrait-placeholder strong { font-size: 10px; }
@@ -618,6 +776,14 @@ button:focus-visible, [tabindex]:focus-visible {
   .title-card { padding-inline: 16px; }
   .title-actions { flex-direction: column; align-items: center; }
   .primary-button, .secondary-button { width: 210px; }
+  .character-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 14px; }
+  .character-card { min-height: 245px; }
+}
+
+@media (max-width: 460px) {
+  .character-grid { grid-template-columns: 1fr; }
+  .character-card { min-height: 220px; display: grid; grid-template-columns: 120px 1fr; }
+  .character-card-portrait { height: 100%; border-bottom: 0; border-right: 1px solid rgba(232, 224, 206, .12); }
 }
 
 @media (prefers-reduced-motion: reduce) {

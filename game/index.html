@@ -38,6 +38,9 @@
             <p id="chapter-title" class="chapter-title">第十三封邀请函</p>
           </div>
           <div class="top-actions">
+            <button id="characters-button" class="utility-button character-button" type="button">
+              角色 <span id="character-count" class="button-count">0</span>
+            </button>
             <button id="history-button" class="utility-button" type="button">记录</button>
             <button id="save-button" class="utility-button" type="button">保存</button>
             <button id="load-button" class="utility-button" type="button">读取</button>
@@ -95,6 +98,18 @@
         <button id="close-history" class="close-button" type="button" aria-label="关闭">×</button>
       </header>
       <div id="history-list" class="history-list"></div>
+    </dialog>
+
+    <dialog id="characters-dialog" class="characters-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">PERSONS OF INTEREST</p>
+          <h2>角色档案</h2>
+          <p id="characters-summary" class="dialog-summary">已登记 0 人</p>
+        </div>
+        <button id="close-characters" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="character-grid" class="character-grid"></div>
     </dialog>
   </main>
 
