@@ -128,7 +128,7 @@
     { speaker: "爱德华", text: "我认为是父亲。" },
     { speaker: "艾薇", text: "您说的是认为，不是确定。" },
     { speaker: "旁白", text: "爱德华没有回答。" },
-    { speaker: "调查", text: "调查书房：选择你要检查的物品\n\n古董钟点击调查\n\n红茶杯点击调查\n\n扶手椅点击调查\n\n空画框点击调查\n\n正式游戏中，四项调查都可以完成。此处为互动演示。" }
+    { speaker: "调查", text: "玩家可以点击四个调查点。\n\n调查书房：选择你要检查的物品\n\n古董钟点击调查\n\n红茶杯点击调查\n\n扶手椅点击调查\n\n空画框点击调查\n\n正式游戏中，四项调查都可以完成。此处为互动演示。" }
   ], "testimony000");
 
   addSequence("testimony", {
@@ -154,13 +154,13 @@
     title: "第十三位证人",
     start: "p000",
     characters: [
-      { id: "ivy", name: "艾薇·贝尔", english: "Ivy Bell", speaker: "艾薇", role: "19岁私人调查者；受无名邀请函召至庄园", initials: "IB", avatar: "" },
-      { id: "edward", name: "爱德华·维尔", english: "Edward Vale", speaker: "爱德华", role: "25岁庄园继承人、案件委托人；第十三位证人", initials: "EV", avatar: "" },
-      { id: "cecilia", name: "塞西莉亚·维尔", english: "Cecilia Vale", speaker: "塞西莉亚", role: "爱德华的姑母；长期住在庄园", initials: "CV", avatar: "" },
-      { id: "julian", name: "朱利安·里德", english: "Julian Reed", speaker: "朱利安", role: "维尔家族私人医生", initials: "JR", avatar: "" },
-      { id: "arthur", name: "阿瑟·芬奇", english: "Arthur Finch", speaker: "阿瑟", role: "庄园管家；书房尸体的第一发现者", initials: "AF", avatar: "" },
-      { id: "margaret", name: "玛格丽特·肖", english: "Margaret Shaw", speaker: "玛格丽特", role: "历史研究者；研究维尔家族档案", initials: "MS", avatar: "" },
-      { id: "lucian", name: "卢西安·克罗", english: "Lucian Crow", speaker: "卢西安", role: "旅行作家；身份暧昧的庄园宾客", initials: "LC", avatar: "" },
+      { id: "ivy", name: "艾薇·贝尔", english: "Ivy Bell", speaker: "艾薇", role: "19岁｜主控角色｜见习侦探", initials: "IB", avatar: "" },
+      { id: "edward", name: "爱德华·维尔", english: "Edward Vale", speaker: "爱德华", role: "25岁｜庄园继承人｜案件委托人；第十三位证人", initials: "EV", avatar: "" },
+      { id: "cecilia", name: "塞西莉亚·维尔", english: "Cecilia Vale", speaker: "塞西莉亚", role: "42岁｜庄园女主人", initials: "CV", avatar: "" },
+      { id: "julian", name: "朱利安·里德", english: "Julian Reed", speaker: "朱利安", role: "28岁｜家庭医生", initials: "JR", avatar: "" },
+      { id: "arthur", name: "阿瑟·芬奇", english: "Arthur Finch", speaker: "阿瑟", role: "61岁｜庄园管家；书房尸体的第一发现者", initials: "AF", avatar: "" },
+      { id: "margaret", name: "玛格丽特·肖", english: "Margaret Shaw", speaker: "玛格丽特", role: "24岁｜家庭教师", initials: "MS", avatar: "" },
+      { id: "lucian", name: "卢西安·克罗", english: "Lucian Crow", speaker: "卢西安", role: "26岁｜旅行作家", initials: "LC", avatar: "" },
       { id: "algernon", name: "阿尔杰农·维尔", english: "Algernon Vale", speaker: "阿尔杰农", role: "维尔家族正式继承人；当前存活", initials: "AV", avatar: "" },
       { id: "august", name: "奥古斯特·维尔", english: "August Vale", speaker: "奥古斯特", role: "阿尔杰农的双胞胎弟弟；当前已经死亡", initials: "AV", avatar: "" },
       { id: "edmund", name: "埃德蒙·格雷", english: "Edmund Grey", speaker: "埃德蒙", role: "退休事务律师；第十二位公开证人", initials: "EG", avatar: "" }

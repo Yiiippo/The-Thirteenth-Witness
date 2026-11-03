@@ -48,5 +48,5 @@ portrait: "./assets/characters/ivy-neutral.png"
 
 选择2–9的大多数非 A 分支在 A1 原稿中没有后续对白。第二章之后接入前，需要先建立待确认分支稿；第六、七章还需先完成 A1 与 A2 的真相桥接。
 
-冻结状态版已备份到 `drafts/content_freeze_game/`；旧 Codex 改编仍位于 `drafts/unapproved_adaptation/game/`，两者都不会被正式游戏读取。
+冻结状态版已备份到 `../drafts/content_freeze_game/`；旧 Codex 改编仍位于 `../drafts/unapproved_adaptation/game/`，两者都不会被正式游戏读取。
 
