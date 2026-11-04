@@ -24,6 +24,7 @@
     history: [],
     unlockedCharacters: [],
     investigations: {},
+    interrogations: {},
     typing: false,
     typeTimer: null,
     fullText: ""
@@ -66,6 +67,10 @@
   const clueList = $("#clue-list");
   const clueCount = $("#clue-count");
   const cluesSummary = $("#clues-summary");
+  const interrogateDialog = $("#interrogate-dialog");
+  const interrogateWitness = $("#interrogate-witness");
+  const interrogateQuestion = $("#interrogate-question");
+  const interrogateResponse = $("#interrogate-response");
   const settingsDialog = $("#settings-dialog");
   const musicToggle = $("#music-toggle");
   const musicVolume = $("#music-volume");
@@ -231,6 +236,7 @@
     state.history = [];
     state.unlockedCharacters = [];
     state.investigations = {};
+    state.interrogations = {};
     updateCharacterCount();
     updateClueCount();
   }
@@ -329,6 +335,7 @@
     scene.className = `scene scene-${node.scene || "manor"}`;
     sceneLabel.textContent = node.place || "";
     updateMusicForNode(node);
+    portraitSlot.classList.toggle("is-narration", node.speaker === "旁白");
 
     const speakerCharacter = story.characters.find((item) => item.speaker === node.speaker);
     const portraitSrc = node.portrait || (speakerCharacter ? speakerCharacter.avatar : "");
@@ -514,6 +521,7 @@
       history: state.history,
       unlockedCharacters: state.unlockedCharacters,
       investigations: state.investigations,
+      interrogations: state.interrogations,
       savedAt: new Date().toISOString()
     };
     localStorage.setItem(saveKey, JSON.stringify(payload));
@@ -536,6 +544,9 @@
       state.history = Array.isArray(payload.history) ? payload.history : [];
       state.investigations = payload.investigations && typeof payload.investigations === "object"
         ? payload.investigations
+        : {};
+      state.interrogations = payload.interrogations && typeof payload.interrogations === "object"
+        ? payload.interrogations
         : {};
       state.unlockedCharacters = Array.isArray(payload.unlockedCharacters)
         ? payload.unlockedCharacters
@@ -620,7 +631,7 @@
         portrait.appendChild(image);
       } else {
         const initials = document.createElement("span");
-        initials.textContent = unlocked ? character.initials : "—";
+        initials.textContent = unlocked ? character.initials : "?";
         portrait.appendChild(initials);
       }
 
@@ -632,15 +643,15 @@
       info.className = "character-card-info";
 
       const chineseName = document.createElement("h3");
-      chineseName.textContent = character.name;
+      chineseName.textContent = unlocked ? character.name : "？？？";
 
       const englishName = document.createElement("p");
       englishName.className = "character-english";
-      englishName.textContent = character.english;
+      englishName.textContent = unlocked ? character.english : "尚未登场";
 
       const role = document.createElement("p");
       role.className = "character-role";
-      role.textContent = character.role;
+      role.textContent = unlocked ? character.role : "身份未确认";
 
       const status = document.createElement("span");
       status.className = "character-status";
@@ -660,6 +671,78 @@
     const count = state.evidence.length;
     clueCount.textContent = count;
     cluesSummary.textContent = `已收集 ${count} 条线索`;
+  }
+
+  function showInterrogation() {
+    const profiles = story.interrogations || {};
+    const available = Object.entries(profiles).filter(([id]) => state.unlockedCharacters.includes(id));
+    interrogateWitness.replaceChildren();
+
+    if (!available.length) {
+      const option = document.createElement("option");
+      option.textContent = "尚无可审问证人";
+      option.value = "";
+      interrogateWitness.appendChild(option);
+      interrogateQuestion.disabled = true;
+      $("#ask-interrogate").disabled = true;
+    } else {
+      available.forEach(([id, profile]) => {
+        const option = document.createElement("option");
+        option.value = id;
+        option.textContent = profile.name;
+        interrogateWitness.appendChild(option);
+      });
+      interrogateQuestion.disabled = false;
+      $("#ask-interrogate").disabled = false;
+    }
+
+    interrogateQuestion.value = "";
+    interrogateResponse.innerHTML = "<p>输入问题。证人不会主动交代全部秘密，也可能用含糊回答保护自己。</p>";
+    interrogateDialog.showModal();
+    if (available.length) window.setTimeout(() => interrogateQuestion.focus(), 50);
+  }
+
+  function askInterrogation() {
+    const witnessId = interrogateWitness.value;
+    const question = interrogateQuestion.value.trim();
+    const profile = story.interrogations?.[witnessId];
+    if (!profile || !question) {
+      showToast("请先选择证人并输入问题");
+      return;
+    }
+
+    const normalized = question.toLowerCase();
+    const topic = profile.topics.find((item) => item.keys.some((key) => normalized.includes(key.toLowerCase())));
+    let answer;
+    if (topic) {
+      answer = topic.answer;
+      if (topic.evidence && !state.evidence.includes(topic.evidence)) {
+        state.evidence.push(topic.evidence);
+        updateClueCount();
+        showToast(`获得线索：${topic.evidence}`);
+      }
+    } else if (/你是谁|身份|职业/.test(question)) {
+      answer = profile.identity;
+    } else if (/记得|记忆/.test(question)) {
+      answer = profile.memory;
+    } else if (/秘密|隐瞒|撒谎/.test(question)) {
+      answer = "我已经回答了与你现有证据有关的部分。若你认为我隐瞒了什么，请指出具体物件、日期或姓名。";
+    } else {
+      answer = "这个问题太宽泛了。请说出具体的人名、日期或证物；我只回答自己真正看见、听见或记录过的事。";
+    }
+
+    const asked = state.interrogations[witnessId] || [];
+    asked.push({ question, answer });
+    state.interrogations[witnessId] = asked.slice(-20);
+    recordHistory(`自由审问 · ${profile.name}`, `问：${question}\n答：${answer}`);
+    interrogateResponse.replaceChildren();
+    const name = document.createElement("strong");
+    name.textContent = profile.name;
+    const text = document.createElement("p");
+    text.textContent = answer;
+    interrogateResponse.append(name, text);
+    interrogateQuestion.value = "";
+    interrogateQuestion.focus();
   }
 
   function showClues() {
@@ -791,9 +874,18 @@
   $("#close-characters").addEventListener("click", () => charactersDialog.close());
   $("#clues-button").addEventListener("click", showClues);
   $("#close-clues").addEventListener("click", () => cluesDialog.close());
+  $("#interrogate-button").addEventListener("click", showInterrogation);
+  $("#close-interrogate").addEventListener("click", () => interrogateDialog.close());
+  $("#ask-interrogate").addEventListener("click", askInterrogation);
+  interrogateQuestion.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      askInterrogation();
+    }
+  });
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open || investigationDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open || investigationDialog.open || interrogateDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();

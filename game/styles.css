@@ -459,6 +459,7 @@ button:focus-visible, [tabindex]:focus-visible {
 
 .portrait-slot.has-image img { display: block; }
 .portrait-slot.has-image .portrait-placeholder { display: none; }
+.portrait-slot.is-narration { display: none; }
 
 .portrait-placeholder {
   position: absolute;
@@ -547,6 +548,28 @@ button:focus-visible, [tabindex]:focus-visible {
 .investigation-hotspot.is-inspected { border-color: rgba(184, 154, 98, .45); background: rgba(73, 62, 43, .72); }
 .investigation-hotspot.is-inspected::before { border-color: rgba(232, 224, 206, .45); }
 .investigation-hotspot.is-inspected::after { background: rgba(232, 224, 206, .45); }
+
+.interrogate-dialog {
+  width: min(760px, calc(100vw - 32px));
+  color: var(--paper);
+  border: 1px solid rgba(184, 154, 98, .42);
+  background: rgba(8, 15, 20, .98);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, .72);
+}
+.interrogate-dialog::backdrop { background: rgba(2, 6, 9, .82); backdrop-filter: blur(5px); }
+.interrogate-dialog > header { display: flex; justify-content: space-between; gap: 24px; padding: 24px 28px 18px; border-bottom: 1px solid rgba(232, 224, 206, .12); }
+.interrogate-dialog h2 { margin: 3px 0 5px; font-weight: 400; letter-spacing: .12em; }
+.interrogate-body { display: grid; gap: 10px; padding: 24px 28px 28px; }
+.interrogate-body label { color: rgba(232, 224, 206, .58); font-family: var(--utility); font-size: 10px; letter-spacing: .12em; }
+.interrogate-body select, .interrogate-body input { width: 100%; border: 1px solid rgba(232, 224, 206, .18); background: #0d171e; color: var(--paper); padding: 12px 14px; font: inherit; outline: none; }
+.interrogate-body select:focus, .interrogate-body input:focus { border-color: var(--gold); }
+.interrogate-input-row { display: grid; grid-template-columns: 1fr auto; gap: 10px; }
+.interrogate-response { min-height: 105px; margin-top: 8px; padding: 18px 20px; border-left: 2px solid var(--gold); background: rgba(255, 255, 255, .035); line-height: 1.8; white-space: pre-wrap; }
+.interrogate-response strong { display: block; margin-bottom: 4px; color: var(--gold); font-weight: 400; }
+.interrogate-response p { margin: 0; }
+.interrogate-guidance { color: rgba(232, 224, 206, .48); font-family: var(--utility); font-size: 10px; line-height: 1.7; }
+.interrogate-guidance span { color: var(--gold); }
+@media (max-width: 640px) { .interrogate-input-row { grid-template-columns: 1fr; } }
 
 .finish-investigation {
   position: absolute;

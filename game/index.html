@@ -38,6 +38,7 @@
             <p id="chapter-title" class="chapter-title">第十三封邀请函</p>
           </div>
           <div class="top-actions">
+            <button id="interrogate-button" class="utility-button" type="button">审问</button>
             <button id="clues-button" class="utility-button clue-button" type="button">
               线索 <span id="clue-count" class="button-count">0</span>
             </button>
@@ -194,6 +195,32 @@
       <h2 id="investigation-item-name">调查物品</h2>
       <p id="investigation-item-description"></p>
       <button id="close-investigation-result" class="primary-button" type="button">记录并返回</button>
+    </dialog>
+
+    <dialog id="interrogate-dialog" class="interrogate-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">FREE INTERROGATION</p>
+          <h2>自由审问</h2>
+          <p class="dialog-summary">输入你真正想问的问题。证人会依照自己的记忆、秘密和隐瞒规则回答。</p>
+        </div>
+        <button id="close-interrogate" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div class="interrogate-body">
+        <label for="interrogate-witness">选择证人</label>
+        <select id="interrogate-witness"></select>
+        <label for="interrogate-question">你的问题</label>
+        <div class="interrogate-input-row">
+          <input id="interrogate-question" type="text" maxlength="160" placeholder="例如：你是否知道奥古斯特？">
+          <button id="ask-interrogate" class="primary-button" type="button">提问</button>
+        </div>
+        <div id="interrogate-response" class="interrogate-response" aria-live="polite">
+          <p>选择已经登场的证人，然后输入问题。</p>
+        </div>
+        <div class="interrogate-guidance">
+          <span>可以询问：</span>身份、目击经历、日期、照片、信件、病历、旧伤、1877年实验、奥古斯特、冰窖或邀请函。
+        </div>
+      </div>
     </dialog>
   </main>
 
