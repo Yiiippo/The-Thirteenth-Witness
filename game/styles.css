@@ -80,30 +80,20 @@ button:focus-visible, [tabindex]:focus-visible {
   place-items: center;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 38%, rgba(112, 132, 140, 0.19), transparent 30%),
-    linear-gradient(180deg, #1b2934 0%, #101820 62%, #080d12 100%);
+    linear-gradient(180deg, rgba(4, 9, 13, .18) 0%, rgba(4, 9, 13, .4) 46%, rgba(3, 7, 10, .86) 100%),
+    radial-gradient(ellipse at 50% 42%, rgba(3, 7, 10, .08) 0%, rgba(3, 7, 10, .36) 58%, rgba(3, 7, 10, .78) 100%),
+    url("./assets/backgrounds/title-cover.png") center / cover no-repeat,
+    #0b141b;
 }
 
-.title-screen::before {
-  content: "";
-  position: absolute;
-  inset: 19% 0 0;
-  opacity: 0.48;
-  background:
-    linear-gradient(90deg, transparent 12%, #060b0f 12% 15%, transparent 15% 85%, #060b0f 85% 88%, transparent 88%),
-    linear-gradient(180deg, transparent 0 39%, #071017 39% 43%, transparent 43%),
-    repeating-linear-gradient(90deg, transparent 0 8%, rgba(4, 8, 12, .82) 8% 9.2%, transparent 9.2% 18%);
-  clip-path: polygon(0 40%, 8% 40%, 8% 27%, 14% 27%, 14% 16%, 21% 16%, 21% 28%, 28% 28%, 28% 8%, 36% 8%, 36% 25%, 45% 25%, 45% 0, 55% 0, 55% 25%, 64% 25%, 64% 8%, 72% 8%, 72% 28%, 79% 28%, 79% 16%, 86% 16%, 86% 27%, 92% 27%, 92% 40%, 100% 40%, 100% 100%, 0 100%);
-}
+.title-screen::before { display: none; }
 
 .title-screen::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background:
-    repeating-linear-gradient(102deg, transparent 0 17px, rgba(205, 223, 228, .07) 18px, transparent 19px 33px),
-    radial-gradient(ellipse at center, transparent 30%, rgba(2, 5, 7, .7) 100%);
+  background: radial-gradient(ellipse at center, transparent 32%, rgba(2, 5, 7, .72) 100%);
 }
 
 .title-fog {
@@ -123,6 +113,16 @@ button:focus-visible, [tabindex]:focus-visible {
   width: min(720px, 88vw);
   padding: 58px 50px 44px;
   text-align: center;
+}
+
+.title-card::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -34px -26px;
+  background: radial-gradient(ellipse at center, rgba(4, 9, 13, .58) 0%, rgba(4, 9, 13, .32) 48%, transparent 72%);
+  filter: blur(8px);
+  pointer-events: none;
 }
 
 .eyebrow {
