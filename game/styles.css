@@ -181,15 +181,6 @@ button:focus-visible, [tabindex]:focus-visible {
 .primary-button:hover, .secondary-button:hover { transform: translateY(-2px); background: var(--paper); color: var(--ink); }
 .secondary-button:disabled { opacity: .35; cursor: not-allowed; transform: none; }
 
-.prototype-note {
-  margin-top: 32px;
-  color: rgba(232, 224, 206, .38);
-  font-family: var(--utility);
-  font-size: 11px;
-  letter-spacing: .18em;
-  text-shadow: 0 1px 8px rgba(0, 0, 0, .8);
-}
-
 .scene {
   position: relative;
   overflow: hidden;
