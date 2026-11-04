@@ -18,7 +18,9 @@
       true_route: 0,
       trust_cecilia: 0,
       trust_lucian: 0,
-      trust_margaret: 0
+      trust_margaret: 0,
+      evidence_board_complete: 0,
+      evidence_board_attempts: 0
     },
     evidence: [],
     history: [],
@@ -71,6 +73,13 @@
   const interrogateWitness = $("#interrogate-witness");
   const interrogateQuestion = $("#interrogate-question");
   const interrogateResponse = $("#interrogate-response");
+  const interrogateSuggestions = $("#interrogate-suggestions");
+  const interrogateButton = $("#interrogate-button");
+  const evidenceBoardButton = $("#evidence-board-button");
+  const evidenceBoardDialog = $("#evidence-board-dialog");
+  const evidenceBoardList = $("#evidence-board-list");
+  const evidenceBoardStatus = $("#evidence-board-status");
+  const evidenceBoardHint = $("#evidence-board-hint");
   const settingsDialog = $("#settings-dialog");
   const musicToggle = $("#music-toggle");
   const musicVolume = $("#music-volume");
@@ -82,6 +91,13 @@
   const toast = $("#toast");
   let renderedChapter = null;
   let chapterTransitionTimers = [];
+  const evidenceComparisons = [
+    { id: "watches", title: "两只怀表", sources: "相同外壳／维修编号 G-1026 与 A-1022", correct: "two_users", options: [["", "选择推断"], ["same_watch", "同一只表被重复登记"], ["two_users", "外观相同，但长期使用者不同"], ["irrelevant", "与身份无关"]] },
+    { id: "photo", title: "双胞胎照片", sources: "背面两个姓名／不同墨水／拍摄日期", correct: "coexist", options: [["", "选择推断"], ["coexist", "同一时期确有两名兄弟存在"], ["fake", "整张照片是伪造的"], ["one_man", "同一人使用两个名字"]] },
+    { id: "medical", title: "病历与牙科齿模", sources: "阿尔杰农右手旧伤／奥古斯特金箔充填与左锁骨伤", correct: "august_body", options: [["", "选择推断"], ["algernon_body", "遗体是阿尔杰农"], ["august_body", "遗体排除阿尔杰农并正向吻合奥古斯特"], ["unknown", "仍完全无法判断"]] },
+    { id: "travel", title: "马车簿与格雷档案", sources: "11月1日乘客记录／1893预约簿与试签纸", correct: "algernon_alive", options: [["", "选择推断"], ["algernon_alive", "带阿尔杰农旧伤的人长期以奥古斯特身份生活并离庄"], ["august_alive", "奥古斯特在11月1日离庄"], ["no_passenger", "马车当晚没有乘客"]] },
+    { id: "scene", title: "温室日志与钟表记录", sources: "10月28日冲突／书房钟维修编号／冰窖值班表", correct: "staged", options: [["", "选择推断"], ["study_death", "死者在书房自然死亡"], ["staged", "温室事故后遗体被保存，书房现场事后布置"], ["clock_truth", "九点十二分就是死亡时间"]] }
+  ];
 
   const audioSettingsKey = "thirteenth-witness-audio-v1";
   const musicTracks = {
@@ -230,7 +246,9 @@
       true_route: 0,
       trust_cecilia: 0,
       trust_lucian: 0,
-      trust_margaret: 0
+      trust_margaret: 0,
+      evidence_board_complete: 0,
+      evidence_board_attempts: 0
     };
     state.evidence = [];
     state.history = [];
@@ -336,6 +354,9 @@
     sceneLabel.textContent = node.place || "";
     updateMusicForNode(node);
     portraitSlot.classList.toggle("is-narration", node.speaker === "旁白");
+    interrogateButton.classList.toggle("is-hidden", !["chapter5", "chapter6", "chapter7", "ending"].includes(node.chapter));
+    const canCompareEvidence = state.evidence.includes("独立身份鉴定材料") || ["chapter7", "ending"].includes(node.chapter);
+    evidenceBoardButton.classList.toggle("is-hidden", !canCompareEvidence);
 
     const speakerCharacter = story.characters.find((item) => item.speaker === node.speaker);
     const portraitSrc = node.portrait || (speakerCharacter ? speakerCharacter.avatar : "");
@@ -472,7 +493,12 @@
     choiceList.replaceChildren();
     choicePanel.classList.remove("is-hidden");
 
-    node.options.forEach((option) => {
+    node.options.filter((option) => {
+      if (!option.showIf) return true;
+      const value = state.variables[option.showIf.variable];
+      if (typeof option.showIf.min === "number") return Number(value || 0) >= option.showIf.min;
+      return value === option.showIf.equals;
+    }).forEach((option) => {
       const button = document.createElement("button");
       button.type = "button";
       button.className = "choice-button";
@@ -499,6 +525,7 @@
       : option.next;
     state.nodeId = nextNode;
     renderNode();
+    if (option.openInterrogation) window.setTimeout(showInterrogation, 80);
   }
 
   function recordHistory(speaker, text) {
@@ -698,8 +725,100 @@
 
     interrogateQuestion.value = "";
     interrogateResponse.innerHTML = "<p>输入问题。证人不会主动交代全部秘密，也可能用含糊回答保护自己。</p>";
+    updateInterrogationSuggestions();
     interrogateDialog.showModal();
     if (available.length) window.setTimeout(() => interrogateQuestion.focus(), 50);
+  }
+
+  function updateInterrogationSuggestions() {
+    interrogateSuggestions.replaceChildren();
+    const profile = story.interrogations?.[interrogateWitness.value];
+    (profile?.directions || []).forEach((direction) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.textContent = direction;
+      button.addEventListener("click", () => {
+        interrogateQuestion.value = direction;
+        interrogateQuestion.focus();
+      });
+      interrogateSuggestions.appendChild(button);
+    });
+  }
+
+  function showEvidenceBoard() {
+    evidenceBoardList.replaceChildren();
+    const complete = state.variables.evidence_board_complete > 0;
+    const attempts = Number(state.variables.evidence_board_attempts || 0);
+    const exhausted = !complete && attempts >= 2;
+    evidenceComparisons.forEach((comparison) => {
+      const row = document.createElement("article");
+      row.className = `evidence-pair ${complete ? "is-correct" : ""}`;
+      const copy = document.createElement("div");
+      const title = document.createElement("strong");
+      title.textContent = comparison.title;
+      const sources = document.createElement("small");
+      sources.textContent = comparison.sources;
+      copy.append(title, sources);
+      const select = document.createElement("select");
+      select.dataset.comparison = comparison.id;
+      comparison.options.forEach(([value, label]) => {
+        const option = document.createElement("option");
+        option.value = value;
+        option.textContent = label;
+        option.selected = complete && value === comparison.correct;
+        select.appendChild(option);
+      });
+      select.disabled = complete || exhausted;
+      row.append(copy, select);
+      evidenceBoardList.appendChild(row);
+    });
+    if (complete) {
+      evidenceBoardStatus.textContent = "独立证据链已完成。";
+      evidenceBoardHint.textContent = "已确认：死者为奥古斯特，阿尔杰农仍然存活并于11月1日离庄。";
+    } else if (exhausted) {
+      evidenceBoardStatus.textContent = "两次核验机会均已使用。";
+      evidenceBoardHint.textContent = "证据板已经锁定，本轮调查无法提交完整独立证据链。";
+    } else {
+      evidenceBoardStatus.textContent = `完成五组物证比对。剩余核验机会：${2 - attempts} 次。`;
+      evidenceBoardHint.textContent = "尚未完成独立鉴定；线索档案只显示观察现象。";
+    }
+    $("#verify-evidence-board").disabled = complete || exhausted;
+    evidenceBoardDialog.showModal();
+  }
+
+  function verifyEvidenceBoard() {
+    const attempts = Number(state.variables.evidence_board_attempts || 0);
+    if (state.variables.evidence_board_complete > 0 || attempts >= 2) return;
+    let correct = 0;
+    evidenceComparisons.forEach((comparison) => {
+      const select = evidenceBoardList.querySelector(`[data-comparison="${comparison.id}"]`);
+      const row = select?.closest(".evidence-pair");
+      const matched = select?.value === comparison.correct;
+      row?.classList.toggle("is-correct", matched);
+      if (matched) correct += 1;
+    });
+    if (correct !== evidenceComparisons.length) {
+      state.variables.evidence_board_attempts = attempts + 1;
+      const remaining = 2 - state.variables.evidence_board_attempts;
+      if (remaining > 0) {
+        evidenceBoardHint.textContent = `本次正确 ${correct} / ${evidenceComparisons.length} 组。还剩 ${remaining} 次核验机会；检查是否同时具备“排除”与“正向确认”。`;
+        evidenceBoardStatus.textContent = `第一次核验未通过。剩余核验机会：${remaining} 次。`;
+      } else {
+        evidenceBoardStatus.textContent = "两次核验机会均已使用。";
+        evidenceBoardHint.textContent = `第二次核验正确 ${correct} / ${evidenceComparisons.length} 组。证据板已锁定。`;
+        evidenceBoardList.querySelectorAll("select").forEach((select) => { select.disabled = true; });
+        $("#verify-evidence-board").disabled = true;
+      }
+      return;
+    }
+    state.variables.evidence_board_attempts = attempts + 1;
+    state.variables.evidence_board_complete = 1;
+    state.variables.true_route = Math.max(1, state.variables.true_route);
+    if (!state.evidence.includes("完整独立证据链")) state.evidence.push("完整独立证据链");
+    updateClueCount();
+    recordHistory("证据板", "五组物证比对完成：死者为奥古斯特；阿尔杰农仍存活并于11月1日离庄。");
+    showToast("独立证据链已完成");
+    showEvidenceBoard();
   }
 
   function askInterrogation() {
@@ -790,6 +909,12 @@
         description.className = "clue-description";
         description.textContent = clue.description;
         content.append(title, source, description);
+        if (clue.inference) {
+          const inference = document.createElement("p");
+          inference.className = "clue-description clue-inference";
+          inference.textContent = state.variables.evidence_board_complete > 0 ? `比对结论：${clue.inference}` : "推断：尚未完成证据板比对";
+          content.appendChild(inference);
+        }
 
         const seal = document.createElement("span");
         seal.className = "evidence-seal";
@@ -877,15 +1002,19 @@
   $("#interrogate-button").addEventListener("click", showInterrogation);
   $("#close-interrogate").addEventListener("click", () => interrogateDialog.close());
   $("#ask-interrogate").addEventListener("click", askInterrogation);
+  interrogateWitness.addEventListener("change", updateInterrogationSuggestions);
   interrogateQuestion.addEventListener("keydown", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
       askInterrogation();
     }
   });
+  $("#evidence-board-button").addEventListener("click", showEvidenceBoard);
+  $("#close-evidence-board").addEventListener("click", () => evidenceBoardDialog.close());
+  $("#verify-evidence-board").addEventListener("click", verifyEvidenceBoard);
 
   document.addEventListener("keydown", (event) => {
-    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open || investigationDialog.open || interrogateDialog.open) return;
+    if (gameScreen.classList.contains("is-hidden") || historyDialog.open || charactersDialog.open || cluesDialog.open || settingsDialog.open || investigationDialog.open || interrogateDialog.open || evidenceBoardDialog.open) return;
     if (event.key === " " || event.key === "Enter") {
       event.preventDefault();
       advance();
@@ -902,4 +1031,5 @@
   updateClueCount();
   updateMusicUI();
 })();
+
 
