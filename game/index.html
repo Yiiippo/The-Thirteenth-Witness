@@ -38,6 +38,7 @@
             <p id="chapter-title" class="chapter-title">第十三封邀请函</p>
           </div>
           <div class="top-actions">
+            <button id="evidence-board-button" class="utility-button" type="button">证据板</button>
             <button id="interrogate-button" class="utility-button" type="button">审问</button>
             <button id="clues-button" class="utility-button clue-button" type="button">
               线索 <span id="clue-count" class="button-count">0</span>
@@ -217,10 +218,27 @@
         <div id="interrogate-response" class="interrogate-response" aria-live="polite">
           <p>选择已经登场的证人，然后输入问题。</p>
         </div>
+        <div id="interrogate-suggestions" class="interrogate-suggestions" aria-label="建议审问方向"></div>
         <div class="interrogate-guidance">
-          <span>可以询问：</span>身份、目击经历、日期、照片、信件、病历、旧伤、1877年实验、奥古斯特、冰窖或邀请函。
+          <span>提示：</span>建议方向只提供调查切入点，你仍可以自由输入其他问题。
         </div>
       </div>
+    </dialog>
+
+    <dialog id="evidence-board-dialog" class="evidence-board-dialog">
+      <header>
+        <div>
+          <p class="eyebrow">EVIDENCE COMPARISON</p>
+          <h2>独立证据板</h2>
+          <p id="evidence-board-status" class="dialog-summary">完成五组物证比对，才能提交完整身份结论。</p>
+        </div>
+        <button id="close-evidence-board" class="close-button" type="button" aria-label="关闭">×</button>
+      </header>
+      <div id="evidence-board-list" class="evidence-board-list"></div>
+      <footer class="evidence-board-footer">
+        <p id="evidence-board-hint">尚未完成独立鉴定。</p>
+        <button id="verify-evidence-board" class="primary-button" type="button">核验证据链</button>
+      </footer>
     </dialog>
   </main>
 
@@ -228,4 +246,5 @@
   <script src="./game.js"></script>
 </body>
 </html>
+
 
