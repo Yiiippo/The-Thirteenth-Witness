@@ -2,6 +2,7 @@
 
 主游戏已接入以下正式背景：
 
+- `title-cover.png`：标题画面封面
 - `manor-rain.jpg`：雨夜庄园外景
 - `entrance-hall.jpg`：门厅
 - `study.jpg`：庄园书房
