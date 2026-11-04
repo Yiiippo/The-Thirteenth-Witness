@@ -563,7 +563,25 @@ button:focus-visible, [tabindex]:focus-visible {
 .interrogate-response p { margin: 0; }
 .interrogate-guidance { color: rgba(232, 224, 206, .48); font-family: var(--utility); font-size: 10px; line-height: 1.7; }
 .interrogate-guidance span { color: var(--gold); }
+.interrogate-suggestions { display: flex; flex-wrap: wrap; gap: 8px; padding-top: 4px; }
+.interrogate-suggestions::before { content: "建议审问方向"; width: 100%; color: rgba(232,224,206,.48); font-family: var(--utility); font-size: 9px; letter-spacing: .12em; }
+.interrogate-suggestions button { padding: 8px 11px; border: 1px solid rgba(184,154,98,.3); background: rgba(184,154,98,.07); color: rgba(232,224,206,.78); font-family: var(--utility); font-size: 10px; cursor: pointer; }
+.interrogate-suggestions button:hover { border-color: var(--gold); color: var(--paper); }
 @media (max-width: 640px) { .interrogate-input-row { grid-template-columns: 1fr; } }
+
+.evidence-board-dialog { width: min(960px, calc(100vw - 32px)); max-height: 90vh; color: var(--paper); border: 1px solid rgba(184, 154, 98, .42); background: #091219; }
+.evidence-board-dialog::backdrop { background: rgba(2, 6, 9, .84); backdrop-filter: blur(5px); }
+.evidence-board-dialog > header { display: flex; justify-content: space-between; padding: 24px 28px 18px; border-bottom: 1px solid rgba(232, 224, 206, .12); }
+.evidence-board-dialog h2 { margin: 3px 0 5px; font-weight: 400; letter-spacing: .12em; }
+.evidence-board-list { display: grid; gap: 12px; max-height: 58vh; overflow: auto; padding: 20px 28px; }
+.evidence-pair { display: grid; grid-template-columns: minmax(190px, .8fr) minmax(260px, 1.2fr); gap: 18px; align-items: center; padding: 15px 17px; border: 1px solid rgba(232, 224, 206, .1); background: rgba(255,255,255,.025); }
+.evidence-pair.is-correct { border-color: rgba(184,154,98,.65); background: rgba(184,154,98,.07); }
+.evidence-pair strong { display: block; margin-bottom: 5px; color: var(--gold); font-weight: 400; }
+.evidence-pair small { color: rgba(232,224,206,.52); line-height: 1.5; }
+.evidence-pair select { width: 100%; padding: 10px 12px; border: 1px solid rgba(232,224,206,.18); background: #0d171e; color: var(--paper); }
+.evidence-board-footer { display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 16px 28px 24px; border-top: 1px solid rgba(232,224,206,.1); }
+.evidence-board-footer p { margin: 0; color: rgba(232,224,206,.58); }
+@media (max-width: 680px) { .evidence-pair { grid-template-columns: 1fr; } .evidence-board-footer { align-items: stretch; flex-direction: column; } }
 
 .finish-investigation {
   position: absolute;
@@ -1204,4 +1222,5 @@ button:focus-visible, [tabindex]:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+
 

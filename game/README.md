@@ -36,12 +36,12 @@
 
 ## 来源规则
 
-- 场景、对白、选择和顺序：`../project_docs_v3/10_Scheme_A_Original_Script.md`
-- 最终案件事实修订：`../project_docs_v3/10B_Scheme_A_Final_Case_Setting.md`
-- 冲突与开放项：`../project_docs_v3/11_Contradictions_and_Open_Questions.md`
-- 实施准入：`../project_docs_v3/12_Development_Implementation.md`
-- 已批准分支：`../project_docs_v3/13_Development_Branch_Script.md`
-- 最终锁定答案：`../project_docs_v3/14_Locked_Resolutions.md`
+- 场景、对白、选择和顺序：`../docs/10_Scheme_A_Original_Script.md`
+- 最终案件事实修订：`../docs/10B_Scheme_A_Final_Case_Setting.md`
+- 冲突与开放项：`../docs/11_Contradictions_and_Open_Questions.md`
+- 实施准入：`../docs/12_Development_Implementation.md`
+- 已批准分支：`../docs/13_Development_Branch_Script.md`
+- 最终锁定答案：`../docs/14_Locked_Resolutions.md`
 
 ## 角色立绘
 
@@ -65,4 +65,5 @@
 原始方案 A 文档保持逐字存档；游戏读取的是经过用户确认的开发实施层。没有把背景开放项擅自写入既定事实。
 
 冻结状态版已备份到 `../drafts/content_freeze_game/`；旧 Codex 改编仍位于 `../drafts/unapproved_adaptation/game/`，两者都不会被正式游戏读取。
+
 

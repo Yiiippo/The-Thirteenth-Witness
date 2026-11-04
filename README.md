@@ -4,19 +4,19 @@
 
 ## 首先阅读
 
-1. [10_Scheme_A_Original_Script.md](10_Scheme_A_Original_Script.md)  
+1. [10_Scheme_A_Original_Script.md](docs/10_Scheme_A_Original_Script.md)
    方案 A 第一版完整游戏剧本。它是场景、对白、十次选择及原始顺序的权威来源，逐字保存，不在文件内修正。
-2. [10B_Scheme_A_Final_Case_Setting.md](10B_Scheme_A_Final_Case_Setting.md)  
+2. [10B_Scheme_A_Final_Case_Setting.md](docs/10B_Scheme_A_Final_Case_Setting.md)
    方案 A 后续案件设定与逻辑修订。它是“奥古斯特死亡、阿尔杰农存活、1877年实验、温室事故、十二证词”等最终案件真相的权威来源，逐字保存。
-3. [10C_Scheme_A_Expanded_Reference.md](10C_Scheme_A_Expanded_Reference.md)  
+3. [10C_Scheme_A_Expanded_Reference.md](docs/10C_Scheme_A_Expanded_Reference.md)
    用户追加的扩展案件参考，补充五组证据、尸体转移、阿瑟知情边界、逻辑校验与修订后五结局，逐字保存。
-4. [11_Contradictions_and_Open_Questions.md](11_Contradictions_and_Open_Questions.md)  
+4. [11_Contradictions_and_Open_Questions.md](docs/11_Contradictions_and_Open_Questions.md)
    单独记录两份原文之间及各自内部的矛盾、待确认事项与验证项。
-5. [12_Development_Implementation.md](12_Development_Implementation.md)  
+5. [12_Development_Implementation.md](docs/12_Development_Implementation.md)
    开发实施版，登记来源优先级、允许进入游戏的事实及用户确认。
-6. [13_Development_Branch_Script.md](13_Development_Branch_Script.md)  
+6. [13_Development_Branch_Script.md](docs/13_Development_Branch_Script.md)
    选择1–9缺失分支的补写对白、线索、变量与回流点；已经用户确认，可进入游戏。
-7. [14_Locked_Resolutions.md](14_Locked_Resolutions.md)  
+7. [14_Locked_Resolutions.md](docs/14_Locked_Resolutions.md)
    正式锁定托马斯日期、温室动作、1897年身份鉴定、冰窖保存和邀请函作者。
 
 三份来源材料的逐字备份位于：
@@ -27,24 +27,25 @@
 
 ## 剧本和选项
 
-- [08_Full_Game_Script.md](08_Full_Game_Script.md)：正式开发如何忠实引用原剧本并应用后续修订。
-- [09_Choice_Matrix.md](09_Choice_Matrix.md)：原剧本十次选择的顺序、原句与分支完整度。
+- [08_Full_Game_Script.md](docs/08_Full_Game_Script.md)：正式开发如何忠实引用原剧本并应用后续修订。
+- [09_Choice_Matrix.md](docs/09_Choice_Matrix.md)：原剧本十次选择的顺序、原句与分支完整度。
 - 旧的 Codex 自行改编仍归档在 `drafts/unapproved_adaptation/`，不得被正式游戏读取。
 
 ## 其他参考文档
 
-以下文件保留为项目圣经、角色、证据、美术和开发参考；若与两份原始材料冲突，按 [12_Development_Implementation.md](12_Development_Implementation.md) 的来源规则处理：
+以下文件统一收纳在 `docs/` 文档目录中。它们保留为项目圣经、角色、证据、美术和开发参考；若与两份原始材料冲突，按 [12_Development_Implementation.md](docs/12_Development_Implementation.md) 的来源规则处理：
 
-- [00_Project_Bible.md](00_Project_Bible.md)
-- [01_Story_and_Lore.md](01_Story_and_Lore.md)
-- [02_Characters.md](02_Characters.md)
-- [03_Clues_and_Mystery.md](03_Clues_and_Mystery.md)
-- [04_Story_Branches.md](04_Story_Branches.md)
-- [05_Endings.md](05_Endings.md)
-- [06_Art_Guidelines.md](06_Art_Guidelines.md)
-- [07_Development_Plan.md](07_Development_Plan.md)
+- [00_Project_Bible.md](docs/00_Project_Bible.md)
+- [01_Story_and_Lore.md](docs/01_Story_and_Lore.md)
+- [02_Characters.md](docs/02_Characters.md)
+- [03_Clues_and_Mystery.md](docs/03_Clues_and_Mystery.md)
+- [04_Story_Branches.md](docs/04_Story_Branches.md)
+- [05_Endings.md](docs/05_Endings.md)
+- [06_Art_Guidelines.md](docs/06_Art_Guidelines.md)
+- [07_Development_Plan.md](docs/07_Development_Plan.md)
 
 ## 游戏
 
 [game/index.html](game/index.html) 已接入序章、全七章、十次选择与五个结局，并保留角色档案、线索档案和存档系统；剧情只采用能定位到原剧本或已确认修订的内容。
+
 
