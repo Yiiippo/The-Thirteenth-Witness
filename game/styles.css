@@ -80,8 +80,7 @@ button:focus-visible, [tabindex]:focus-visible {
   place-items: center;
   overflow: hidden;
   background:
-    linear-gradient(180deg, rgba(4, 9, 13, .18) 0%, rgba(4, 9, 13, .4) 46%, rgba(3, 7, 10, .86) 100%),
-    radial-gradient(ellipse at 50% 42%, rgba(3, 7, 10, .08) 0%, rgba(3, 7, 10, .36) 58%, rgba(3, 7, 10, .78) 100%),
+    linear-gradient(180deg, rgba(4, 9, 13, 0) 0%, rgba(4, 9, 13, 0) 46%, rgba(3, 7, 10, .18) 72%, rgba(3, 7, 10, .42) 100%),
     url("./assets/backgrounds/title-cover.png") center / cover no-repeat,
     #0b141b;
 }
@@ -93,7 +92,7 @@ button:focus-visible, [tabindex]:focus-visible {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  background: radial-gradient(ellipse at center, transparent 32%, rgba(2, 5, 7, .72) 100%);
+  background: radial-gradient(ellipse at center, transparent 56%, rgba(2, 5, 7, .24) 100%);
 }
 
 .title-fog {
@@ -120,8 +119,8 @@ button:focus-visible, [tabindex]:focus-visible {
   position: absolute;
   z-index: -1;
   inset: -34px -26px;
-  background: radial-gradient(ellipse at center, rgba(4, 9, 13, .58) 0%, rgba(4, 9, 13, .32) 48%, transparent 72%);
-  filter: blur(8px);
+  background: radial-gradient(ellipse at center, rgba(4, 9, 13, .16) 0%, rgba(4, 9, 13, .05) 50%, transparent 74%);
+  filter: blur(10px);
   pointer-events: none;
 }
 
@@ -131,6 +130,7 @@ button:focus-visible, [tabindex]:focus-visible {
   font-family: var(--utility);
   font-size: 11px;
   letter-spacing: .34em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .75);
 }
 
 .title-card h1 {
@@ -148,6 +148,7 @@ button:focus-visible, [tabindex]:focus-visible {
   font-family: var(--display);
   font-size: 13px;
   letter-spacing: .48em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .75);
 }
 
 .title-copy {
@@ -156,6 +157,7 @@ button:focus-visible, [tabindex]:focus-visible {
   font-size: 16px;
   line-height: 2;
   letter-spacing: .08em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .85);
 }
 
 .title-actions {
@@ -185,6 +187,7 @@ button:focus-visible, [tabindex]:focus-visible {
   font-family: var(--utility);
   font-size: 11px;
   letter-spacing: .18em;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, .8);
 }
 
 .scene {
