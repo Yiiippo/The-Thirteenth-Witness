@@ -1,10 +1,6 @@
 # 第十三位证人
 
 <p align="center">
-  <img src="game/assets/backgrounds/title-cover.png" alt="《第十三位证人》游戏封面" width="720">
-</p>
-
-<p align="center">
   <strong>THE THIRTEENTH WITNESS</strong><br>
   十二个人声称见过他。十二个人都没有撒谎。可是，没有一个人真正见过他。
 </p>
